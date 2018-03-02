@@ -1,7 +1,5 @@
 package operations;
 
-import java.util.Arrays;
-
 /**
  * @author Birsan Ioana (cas. Amariei) B5
  * @author Gensthaler Octavian B5
@@ -18,8 +16,9 @@ public class BasicOperations {
         System.out.println("Willy-nilly, this semester I will learn " + languages[index]);
     }
 
-    private static int computeResult() {
+    public static int computeResult() {
         int n = (int) (Math.random() * 1_000_000);
+        System.out.println(n);
 
         n *= 3;
         n += Integer.parseInt("10101", 2);

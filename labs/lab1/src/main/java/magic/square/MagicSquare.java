@@ -66,10 +66,12 @@ public class MagicSquare {
 
     public String squareToString() {
         StringBuilder stringBuilder = new StringBuilder();
+        char unicode = '\u25A2';
 
         for (int i = 0; i < square.length; i++) {
             for (int j = 0; j < square.length; j++) {
-                stringBuilder.append(square[i][j] + " ");
+                char c = (char)(unicode + square[i][j]);
+                stringBuilder.append(c+ " ");
             }
             stringBuilder.append("\n");
         }

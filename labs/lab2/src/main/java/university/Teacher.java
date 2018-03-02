@@ -4,13 +4,12 @@
  */
 
 package university;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Teacher extends Person {
-    private List<Student> preferences;
-    private Project project;
+    private Set<Student> preferences;
 
     /**
      * Constructor with arguments
@@ -18,34 +17,12 @@ public class Teacher extends Person {
      * @param email a string representing the personal email
      */
     public Teacher(String name, String email) {
+        /**
+         * Invokes the constructor from the superclass
+         */
         super(name, email);
 
-        this.preferences = new ArrayList <Student>();
-        this.project = new Project(null, 0);
-    }
-
-    /**
-     * Gets the project
-     * @return a Project object
-     */
-    public Project getProject() {
-        return project;
-    }
-
-    /**
-     * Sets the project
-     * @param project project to be set
-     */
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    /**
-     * Add a student to the list of preferences of the teacher
-     * @param student the student to be added
-     */
-    public void setPreferences(Student student) {
-        preferences.add(student);
+        this.preferences = new HashSet <>();
     }
 
     /**
@@ -54,13 +31,12 @@ public class Teacher extends Person {
      * @param name
      */
     public Project createProject(String name, int capacity) {
-        this.project = new Project(name, capacity);
-        return this.project;
+        return new Project(name, capacity);
     }
 
     /**
-     * Add 4 students to the list of student preferences
-     * @param students
+     * Add the students to the list of student preferences
+     * @param students the students to be added
      */
     public void setPreferences(Student ... students) {
         preferences.addAll(Arrays.asList(students));
@@ -70,7 +46,10 @@ public class Teacher extends Person {
     public String toString() {
         return "Teacher{" +
                 "preferences=" + preferences +
-                ", project=" + project +
                 '}';
+    }
+
+    public Set <Student> getPreferences() {
+        return preferences;
     }
 }

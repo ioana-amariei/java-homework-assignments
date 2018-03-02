@@ -21,6 +21,12 @@ public class Project {
     }
 
     /**
+     * Constructor without arguments
+     */
+    public Project() {
+    }
+
+    /**
      * Gets the capacity
      * @return the capacity constraint (int value)
      */

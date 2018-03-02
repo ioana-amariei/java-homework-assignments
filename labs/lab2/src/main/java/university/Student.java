@@ -4,13 +4,10 @@
  */
 
 package university;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Student extends Person {
-    private Project project;
-    private List<Project> preferences;
+    private Set<Project> preferences;
 
     /**
      * Constructor with arguments
@@ -23,57 +20,29 @@ public class Student extends Person {
          */
         super(name, email);
 
-        this.project = new Project(null, 0);
-        this.preferences = new ArrayList <Project>();
-    }
-
-    /**
-     * Gets the project
-     * @return a Project object
-     */
-    public Project getProject() {
-        return project;
-    }
-
-    /**
-     * Sets the project
-     * @param project the project to be set
-     */
-    public void setProject(Project project) {
-        this.project = project;
+        this.preferences = new HashSet <>();
     }
 
     /**
      * Gets the list of preferred projects
      * @return a list of project preferences
      */
-    public List <Project> getPreferences() {
+    public Set <Project> getPreferences() {
         return preferences;
     }
 
     /**
-     * Add 3 projects to the list of project preferences
+     * Add the projects to the list of project preferences
      * @param projects
      */
     public void setPreferences(Project ... projects) {
         preferences.addAll(Arrays.asList(projects));
     }
 
-    /**
-     * Add a project to the list of project preferences
-     * @param project the project to be added
-     */
-    public void setPreferences(Project project) {
-        preferences.add(project);
-    }
-
-
-
     @Override
     public String toString() {
         return "Student{" +
-                "project=" + project +
-                ", preferences=" + preferences +
+                "preferences=" + preferences +
                 '}';
     }
 }

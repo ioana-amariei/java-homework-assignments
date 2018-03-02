@@ -50,6 +50,23 @@ public class Problem {
         return participants.toArray(persons);
     }
 
+    /**
+     * Gets the list of students involved
+     * @return a list of students
+     */
+    public Set <Student> getStudents() {
+        return students;
+    }
+
+    /**
+     * Gets the list of teachers involved
+     * @return a list of teachers
+     */
+    public Set <Teacher> getTeachers() {
+        return teachers;
+    }
+
+
     @Override
     public String toString() {
         return "Problem{" +
@@ -57,5 +74,4 @@ public class Problem {
                 ", teachers=" + teachers +
                 '}';
     }
-
 }
