@@ -30,6 +30,7 @@ public class Person {
      * @return a string representing the name
      */
     public String getName() {
+
         return name;
     }
 
@@ -38,6 +39,7 @@ public class Person {
      * @param name the name to be set (string value)
      */
     public void setName(String name) {
+
         this.name = name;
     }
 
@@ -46,6 +48,7 @@ public class Person {
      * @return the email (string value)
      */
     public String getEmail() {
+
         return email;
     }
 

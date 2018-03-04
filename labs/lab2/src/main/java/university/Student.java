@@ -24,18 +24,20 @@ public class Student extends Person {
     }
 
     /**
-     * Gets the list of preferred projects
-     * @return a list of project preferences
+     * Gets the set of preferred projects
+     * @return a set of project preferences
      */
     public Set <Project> getPreferences() {
+
         return preferences;
     }
 
     /**
-     * Add the projects to the list of project preferences
+     * Add the projects to the set of project preferences
      * @param projects
      */
     public void setPreferences(Project ... projects) {
+
         preferences.addAll(Arrays.asList(projects));
     }
 

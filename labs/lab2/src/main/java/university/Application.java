@@ -39,11 +39,16 @@ public class Application {
         Person[] participants = problem.getParticipants();
         System.out.println(Arrays.toString(participants));
         // check number of participants
-        System.out.println(participants.length);
+        //System.out.println(participants.length);
+
+
+        int x = 5;
+        x *= 3 + 7;
+        System.out.println(x);
 
         StudentAllocator allocator = new StudentAllocator(problem);
-        allocator.matchStudentToProject();
-        System.out.println(allocator);
+        //allocator.matchStudentToProject();
+        //System.out.println(allocator);
 
     }
 }

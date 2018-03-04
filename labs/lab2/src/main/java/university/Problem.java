@@ -20,16 +20,15 @@ public class Problem {
     }
 
     /**
-     * Sets the students list
+     * Sets the students set
      * @param students
      */
     public void setStudents(Student ... students) {
-
         this.students.addAll(Arrays.asList(students));
     }
 
     /**
-     * Sets the teachers list
+     * Sets the teachers set
      * @param teachers
      */
     public void setTeachers(Teacher ... teachers) {
@@ -51,18 +50,20 @@ public class Problem {
     }
 
     /**
-     * Gets the list of students involved
-     * @return a list of students
+     * Gets the set of students involved
+     * @return a set of students
      */
     public Set <Student> getStudents() {
+
         return students;
     }
 
     /**
-     * Gets the list of teachers involved
-     * @return a list of teachers
+     * Gets the set of teachers involved
+     * @return a set of teachers
      */
     public Set <Teacher> getTeachers() {
+
         return teachers;
     }
 

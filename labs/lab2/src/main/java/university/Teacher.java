@@ -35,7 +35,7 @@ public class Teacher extends Person {
     }
 
     /**
-     * Add the students to the list of student preferences
+     * Add the students to the set of student preferences
      * @param students the students to be added
      */
     public void setPreferences(Student ... students) {

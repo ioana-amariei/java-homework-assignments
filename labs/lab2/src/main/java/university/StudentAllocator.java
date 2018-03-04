@@ -21,6 +21,10 @@ public class StudentAllocator {
         this.problem = problem;
     }
 
+    /**
+     * An algorithm for allocating students to projects, subject to the preferences and capacities.
+     * The solution represents a matching between students and projects
+     */
     public void matchStudentToProject() {
         Set <Student> students = problem.getStudents();
         Set <Teacher> teachers = problem.getTeachers();
@@ -55,6 +59,12 @@ public class StudentAllocator {
         }
     }
 
+    /**
+     * Updates the set of teacher preferences
+     * @param students the set of all students
+     * @param teacherPreferences the set of all students preferred by a teacher
+     * @return a set of updated students
+     */
     private Set <Student> updateTeacherPreferences(Set <Student> students, Set <Student> teacherPreferences) {
         Set <Student> updatedList = new HashSet <>();
 
@@ -69,7 +79,12 @@ public class StudentAllocator {
         return updatedList;
     }
 
-
+    /**
+     * Updates the set of student preferences
+     * @param projects the set of all projects
+     * @param studentPreferences the set of all projects preferred by a student
+     * @return a set of updated projects
+     */
     private Set <Project> updateStudentPreferences(Set <Project> projects, Set <Project> studentPreferences) {
         Set <Project> updatedList = new HashSet <>();
 
