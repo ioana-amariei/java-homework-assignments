@@ -16,11 +16,11 @@ import investment.portofolio.algorithm.RandomAlgorithm;
 public class Application {
     public static void main(String[] args) {
         Building h1 = new Building("House 1", 27, 9);
-        Building h2 = new Building("House 2", 10, 24);
-        Building h3 = new Building("House 3", 17, 5);
+        Building h2 = new Building("House 2", 27, 9);
+        Building h3 = new Building("House 3", 64, 16);
         Vehicle c1 = new Vehicle("Car 1", 8, 4);
-        Vehicle c2 = new Vehicle("Car 2", 16, 3);
-        Jewel ring = new Jewel("Ring 1", 24);
+        Vehicle c2 = new Vehicle("Car 2", 8, 4);
+        Jewel ring = new Jewel("Gold Diamond Ring", 2);
 
         AssetManager manager = new AssetManager();
         manager.add(h1, h2, h3);
