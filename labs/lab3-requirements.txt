@@ -1,0 +1,85 @@
+
+Lab 3
+[valid 2017-2018]
+
+The Portofolio Optimization Problem
+A company must implement a software solution for creating its investment portofolio. A number of items, all having a name and a price, are taken into consideration, for example buildings, vehicles, jewels, etc. Each item type has a unique name and a price. Some items (called assets) have also defined a method for calculating their expected profit and only they will be considered for the final purchase. The profit factors are defined as:
+
+    building: area / price
+    vehicle: performance / price
+    jewel: no profit method defined yet. 
+
+The problem is to determine which assets to include in the portofolio such that:
+
+    the total price does not exceed a given maximum value.
+    the profit is as large as possible. 
+
+Example:
+
+  maximum value of the portofolio = 20
+  available items:
+     House 1: area = 27, price = 9 (profit factor = 3)
+     House 2: area = 27, price = 9
+     House 3: area = 64, price = 16 (profit factor = 4)
+     Car 1, performance = 8, price = 4 (profit factor = 2)
+     Car 2: performance = 8, price = 4
+     Gold Diamond Ring: price = 2
+  selected assets: Car1, Car2, House 1
+
+The main specifications of the application are:
+
+Compulsory (1p)
+
+    Create an object-oriented model of the problem. You should have at least the following classes Building, Vehicle, Jewel, extending the superclass Item.
+    Create the interface Asset, describing only the items that have the computeProfit method.
+    Create all the objects given in the example.
+
+      Building h1 = new Building("House 1", 27, 9);
+      Vehicle c1 = new Vehicle("Car 1", 8, 4);
+      . ..
+
+    Create the AssetManager class that will contain a set of items. Display all the items sorted by their names.
+
+      AssetManager manager = new AssetManager();
+      manager.add(h1, h2, h3);
+      manager.add(c1, c2); 
+      manager.add(ring);
+      System.out.println("Items sorted by name: " + manager.getItems());
+
+Optional (1p)
+
+    Display only the assets contained by a manager (items that have the computeProfit method), sorted by their profit factor.
+
+      System.out.println("Assets sorted by profit: " + manager.getAssets());
+
+    Create a default method in the interface Asset, for evaluating the financial risk of purchasing an item. Use the risk factor in computing the profit. For example, the risk factor might be a number between 0 (no risk, default) and 1 (extremely risky).
+    Create the Portofolio class, representing a solution for the problem.
+    Create the interface Algorithm and two classes that implement algorithms for solving the protofolio problem: a random algorithm and a greedy algorithm.
+
+      int maxValue = 20;
+      Portofolio solution = manager.createPortofolio(new GreedyAlgorithm(), maxValue);
+      System.out.println("The best portofolio: " + solution);
+
+    When printing the solution, the selected assets must be ordered according to their value. 
+
+Bonus
+Implement a pseudo-polynomial algorithm for the problem, using dynamic programming. Create a random problem generator and analyze the performance of your algorithm (the running time and the memory consumption) for "large" instances. (Note: In order to obtain the bonus, the algorithm must be very well understood, otherwise no bonus will be awarded.)
+
+Resources
+
+    The Java Tutorials: Interfaces
+    The Java Tutorials: Collections ( Know Thy Complexities! )
+    The Java Tutorials: Generics 
+
+Objectives
+
+    Create interfaces to describe specifications.
+    Create multiple implementations of an interface.
+    Understand the differences between abstract classes and interfaces.
+    Use packages to organize the classes and intefaces of the application.
+    Implement the Model-View-Controller pattern.
+    Implement the Factory Method pattern.
+    Implement the Observer pattern.
+    Use collections and generics.
+    Understand the space-time tradeoff of various types of collections. 
+
