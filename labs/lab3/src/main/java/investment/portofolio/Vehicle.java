@@ -1,15 +1,27 @@
+/**
+ * @author Birsan Ioana (cas. Amariei) B5
+ * @author Gensthaler Octavian B5
+ */
+
 package investment.portofolio;
 
 import investment.portofolio.asset.Asset;
 import investment.portofolio.item.Item;
 
-import java.util.Random;
 
-/**
- * Created by AMI on 2018-03-04.
- */
 public class Vehicle extends Item implements Asset {
     private int performance;
+
+    /**
+     * Constructor with arguments
+     * @param name a string representing the name
+     * @param performance a numerical value representing the performance
+     * @param price a numerical value representing the price
+     */
+    public Vehicle(String name, int performance, int price) {
+        super(name, price);
+        this.performance = performance;
+    }
 
     @Override
     public String toString() {
@@ -19,21 +31,16 @@ public class Vehicle extends Item implements Asset {
                 '}';
     }
 
-    public Vehicle(String name, int performance, int price) {
-        super(name, price);
-        this.performance = performance;
-    }
-
     @Override
     public int computeProfit() {
-        int price = performance / getPrice();
+        int initialProfit = performance / getPrice();
         double risk = 1 - riskFactor();
 
-        return (int) (price * risk);
+        return (int) (initialProfit * risk);
     }
 
     @Override
-    public double riskFactor(){
+    public double riskFactor() {
         return 0.7;
     }
 }

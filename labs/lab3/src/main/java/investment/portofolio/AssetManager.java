@@ -1,3 +1,8 @@
+/**
+ * @author Birsan Ioana (cas. Amariei) B5
+ * @author Gensthaler Octavian B5
+ */
+
 package investment.portofolio;
 
 import investment.portofolio.algorithm.Algorithm;
@@ -6,25 +11,33 @@ import investment.portofolio.asset.Asset;
 import investment.portofolio.comparators.AssetComparator;
 import investment.portofolio.comparators.ItemComparator;
 import investment.portofolio.item.Item;
-
 import java.util.*;
 
-/**
- * Created by AMI on 2018-03-04.
- */
+
 public class AssetManager {
     private static final Comparator <Item> ITEM_COMPARATOR = new ItemComparator();
     private static final Comparator <Asset> ASSET_COMPARATOR = new AssetComparator();
     private Set <Item> items;
 
+    /**
+     * Constructor without arguments
+     */
     public AssetManager() {
         items = new HashSet <>();
     }
 
+    /**
+     * Adds a variable number of objects of type Item to a set of items
+     * @param items the items to be added
+     */
     public void add(Item... items) {
         this.items.addAll(Arrays.asList(items));
     }
 
+    /**
+     * Gets a list of items sorted by their name
+     * @return a list of items sorted by their name
+     */
     public List <Item> getItems() {
         List <Item> copy = new LinkedList <>(items);
         copy.sort(ITEM_COMPARATOR);
@@ -32,10 +45,14 @@ public class AssetManager {
         return copy;
     }
 
+    /**
+     * Gets a list of assets sorted by their profit
+     * @return a list of assets sorted by their profit
+     */
     public List <Asset> getAssets() {
         List <Asset> assets = new LinkedList <>();
-        for(Item item : items){
-            if (item instanceof Asset){
+        for (Item item : items) {
+            if (item instanceof Asset) {
                 assets.add((Asset) item);
             }
         }
@@ -44,6 +61,14 @@ public class AssetManager {
         return assets;
     }
 
+    /**
+     * Creates a portfofolio of assets such that:
+       -- the total price does not exceed a given maximum value.
+       -- the profit is as large as possible.
+     * @param algorithm the algorithm to be applied
+     * @param maxValue given maximum value
+     * @return a portofolio (list of selected assets)
+     */
     public Portofolio createPortofolio(Algorithm algorithm, int maxValue) {
         List <Asset> assets = getAssets();
         algorithm.orderAssetsAccordingToStrategy(assets);

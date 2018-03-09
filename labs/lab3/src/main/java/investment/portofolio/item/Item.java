@@ -1,14 +1,21 @@
+/**
+ * @author Birsan Ioana (cas. Amariei) B5
+ * @author Gensthaler Octavian B5
+ */
+
 package investment.portofolio.item;
 
-/**
- * Created by AMI on 2018-03-04.
- */
 public abstract class Item {
     private String name;
     private int price;
 
+    /**
+     * Constructor with arguments
+     *
+     * @param name  a string representing the name
+     * @param price a numerical value representing the price
+     */
     public Item(String name, int price) {
-
         this.name = name;
         this.price = price;
     }
@@ -41,15 +48,31 @@ public abstract class Item {
         return name;
     }
 
+    /**
+     * Sets the name
+     *
+     * @param name a string representing the name to be set
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets the price
+     *
+     * @return the price of the Item
+     */
     public int getPrice() {
         return price;
     }
 
+    /**
+     * Sets the price
+     *
+     * @param price the price to be set
+     */
     public void setPrice(int price) {
+
         this.price = price;
     }
 }

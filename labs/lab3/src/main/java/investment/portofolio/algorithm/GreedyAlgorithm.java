@@ -1,19 +1,29 @@
+/**
+ * @author Birsan Ioana (cas. Amariei) B5
+ * @author Gensthaler Octavian B5
+ */
+
 package investment.portofolio.algorithm;
 
-import investment.portofolio.AssetManager;
 import investment.portofolio.asset.Asset;
-import investment.portofolio.comparators.ProfitComparator;
+import investment.portofolio.comparators.AssetComparator;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Created by AMI on 2018-03-08.
- */
+
 public class GreedyAlgorithm implements Algorithm {
-    private static final Comparator<Asset> PROFIT_COMPARATOR = new ProfitComparator();
+    private static final Comparator <Asset> ASSET_COMPARATOR = new AssetComparator();
+
+    /**
+     * Sorts descending the specified list according to the profit.
+     *
+     * @param assets the list of assets to be ordered
+     */
     @Override
     public void orderAssetsAccordingToStrategy(List <Asset> assets) {
-        assets.sort(PROFIT_COMPARATOR);
+        assets.sort(ASSET_COMPARATOR);
+        Collections.reverse(assets);
     }
 }

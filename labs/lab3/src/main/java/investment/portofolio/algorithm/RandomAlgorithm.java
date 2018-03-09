@@ -1,17 +1,21 @@
+/**
+ * @author Birsan Ioana (cas. Amariei) B5
+ * @author Gensthaler Octavian B5
+ */
+
 package investment.portofolio.algorithm;
 
 import investment.portofolio.asset.Asset;
 
 import java.util.*;
 
-/**
- * Created by AMI on 2018-03-08.
- */
+
 public class RandomAlgorithm implements Algorithm {
-
-    public RandomAlgorithm() {
-    }
-
+    /**
+     * Randomly permutes the specified list using a default source of randomness.
+     * All permutations occur with approximately equal likelihood.
+     * @param assets the list of assets to be ordered
+     */
     @Override
     public void orderAssetsAccordingToStrategy(List <Asset> assets) {
         Collections.shuffle(assets);
