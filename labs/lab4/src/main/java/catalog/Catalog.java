@@ -1,20 +1,19 @@
 /**
  * @author Birsan Ioana (cas. Amariei B5)
- * @author Gensthaler octavian B5
+ * @author Gensthaler Octavian B5
  */
 
 package catalog;
 
-import document.Document;
+import documents.Document;
 
 import java.awt.*;
 import java.io.*;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class Catalog {
+public class Catalog implements Serializable {
     private List <Document> documents;
 
     public Catalog() {
@@ -22,12 +21,28 @@ public class Catalog {
     }
 
     /**
+     * Loads the catalog from an external file.
+     *
+     * @param path the external file path from where the catalog is loaded
+     * @return a catalog of documents
+     */
+    public static Catalog load(String path) throws IOException, ClassNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream(path);
+        ObjectInputStream in = new ObjectInputStream(fileInputStream);
+
+        Catalog catalog = (Catalog) in.readObject();
+        fileInputStream.close();
+
+        return catalog;
+    }
+
+    /**
      * Adds a new entry into the catalog.
      *
-     * @param documents the document/documents to be added
+     * @param document the document/document to be added
      */
-    public void add(Document... documents) {
-        this.documents.addAll(Arrays.asList(documents));
+    public void add(Document document) {
+        this.documents.add(document);
     }
 
     /**
@@ -37,12 +52,7 @@ public class Catalog {
         System.out.println(documents);
     }
 
-    /**
-     * Opens the document using the native operating system application.
-     *
-     * @param filename the name of the file
-     * @throws IOException
-     */
+    // Opens the documents using the native operating system application.
     public void open(String filename) throws IOException {
         //text file, should be opening in default text editor
         File file = new File(filename);
@@ -54,38 +64,24 @@ public class Catalog {
         }
 
         Desktop desktop = Desktop.getDesktop();
-        if (file.exists()) desktop.open(file);
+        if (file.exists()) {
+            desktop.open(file);
+        }
     }
 
     /**
      * Saves the catalog to an external file (either as a text or binary, using object serialization).
      *
-     * @param externalFilePath the external file path for catalog to be saved
+     * @param path the external file path for catalog to be saved
      */
-    public void save(String externalFilePath) throws IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream(externalFilePath);
+    public void save(String path) throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream(path);
         ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
 
-        out.writeObject(new Catalog());
+        out.writeObject(this);
         out.flush();
 
         fileOutputStream.close();
-    }
-
-    /**
-     * Loads the catalog from an external file.
-     *
-     * @param externalFilePath the external file path from where the catalog is loaded
-     * @return a catalog of documents
-     */
-    public static Catalog load(String externalFilePath) throws IOException, ClassNotFoundException {
-        FileInputStream fileInputStream = new FileInputStream(externalFilePath);
-        ObjectInputStream in = new ObjectInputStream(fileInputStream);
-
-        Catalog catalog = (Catalog) in.readObject();
-        fileInputStream.close();
-
-        return catalog;
     }
 
     @Override
