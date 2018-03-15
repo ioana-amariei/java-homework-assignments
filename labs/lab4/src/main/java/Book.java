@@ -3,24 +3,24 @@
  * @author Gensthaler octavian B5
  */
 
-package document;
+import document.Document;
 
 import java.util.List;
-
 
 public class Book extends Document {
     private String publisher;
 
-    public Book(String title, String path, int year, List <String> authors) {
+    public Book(String title, String path, int year, String ... authors) {
         super(title, path, year, authors);
+
     }
 
     public String getPublisher() {
-
         return publisher;
     }
 
     public void setPublisher(String publisher) {
+
         this.publisher = publisher;
     }
 
