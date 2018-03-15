@@ -8,8 +8,7 @@ package catalog;
 import document.Document;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,9 +23,10 @@ public class Catalog {
 
     /**
      * Adds a new entry into the catalog.
+     *
      * @param documents the document/documents to be added
      */
-    public void add(Document ... documents) {
+    public void add(Document... documents) {
         this.documents.addAll(Arrays.asList(documents));
     }
 
@@ -39,6 +39,7 @@ public class Catalog {
 
     /**
      * Opens the document using the native operating system application.
+     *
      * @param filename the name of the file
      * @throws IOException
      */
@@ -47,13 +48,13 @@ public class Catalog {
         File file = new File(filename);
 
         //first check if Desktop is supported by Platform or not
-        if(!Desktop.isDesktopSupported()){
+        if (!Desktop.isDesktopSupported()) {
             System.out.println("Desktop is not supported");
             return;
         }
 
         Desktop desktop = Desktop.getDesktop();
-        if(file.exists()) desktop.open(file);
+        if (file.exists()) desktop.open(file);
     }
 
     /**
@@ -61,8 +62,14 @@ public class Catalog {
      *
      * @param externalFilePath the external file path for catalog to be saved
      */
-    public void save(String externalFilePath) {
+    public void save(String externalFilePath) throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream(externalFilePath);
+        ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
 
+        out.writeObject(new Catalog());
+        out.flush();
+
+        fileOutputStream.close();
     }
 
     /**
@@ -71,8 +78,14 @@ public class Catalog {
      * @param externalFilePath the external file path from where the catalog is loaded
      * @return a catalog of documents
      */
-    public static Catalog load(String externalFilePath) {
-        return new Catalog();
+    public static Catalog load(String externalFilePath) throws IOException, ClassNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream(externalFilePath);
+        ObjectInputStream in = new ObjectInputStream(fileInputStream);
+
+        Catalog catalog = (Catalog) in.readObject();
+        fileInputStream.close();
+
+        return catalog;
     }
 
     @Override
