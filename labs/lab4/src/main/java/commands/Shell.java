@@ -6,13 +6,13 @@
 package commands;
 
 import catalog.Catalog;
+import org.apache.tools.ant.types.Commandline;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 /* The test class or client. */
 public class Shell {
@@ -20,33 +20,29 @@ public class Shell {
         String commandLine;
         BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 
+        Catalog catalog = new Catalog();
+
         //Break with Ctrl+C
-        while(true) {
+        while (true) {
             // read the command
             System.out.println("shell>");
             commandLine = console.readLine();
 
-            List<String> tokens = new LinkedList <>();
-            StringTokenizer stringTokenizer = new StringTokenizer(commandLine, "\"");
-            while (stringTokenizer.hasMoreTokens()) {
-                System.out.println(stringTokenizer.nextToken());
-                tokens.add(stringTokenizer.nextToken());
-            }
+            String[] arguments = Commandline.translateCommandline(commandLine);
 
-            if (tokens.size() < 2) {
+            if (arguments.length < 2) {
                 throw new IllegalArgumentException("Wrong number of arguments.");
             }
 
-            Catalog catalog = new Catalog();
 
             List <String> parameters = new LinkedList <>();
-            for (int i = 1; i < tokens.size(); i++) {
-                parameters.add(tokens.get(i));
+            for (int i = 1; i < arguments.length; i++) {
+                parameters.add(arguments[i]);
             }
 
             Command command = null;
 
-            String commandType = tokens.get(0);
+            String commandType = arguments[0];
             switch (commandType) {
                 case "add":
                     command = new AddCommand(catalog, parameters);
@@ -79,6 +75,7 @@ public class Shell {
                 command = null;
             }
 
+            catalog.list();
         }
     }
 }

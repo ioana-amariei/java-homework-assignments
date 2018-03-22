@@ -43,7 +43,6 @@ public class Catalog implements Serializable {
 
     // Prints the content of the catalog on the screen.
     public void list() {
-
         System.out.println(documents);
     }
 

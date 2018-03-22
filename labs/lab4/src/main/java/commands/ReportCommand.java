@@ -27,13 +27,14 @@ public class ReportCommand implements Command {
 
     @Override
     public void execute() throws IOException, ClassNotFoundException {
-        List<Document> documents = new LinkedList <>(catalog.getDocuments());
+        List<Document> documents = new LinkedList <>(this.catalog.getDocuments());
 
         StringBuilder htmlBuilder = new StringBuilder();
 
-        htmlBuilder.append("<<!DOCTYPE html>\n" +
+        htmlBuilder.append("<!DOCTYPE html>\n" +
                             "<html>\n" +
                             "<head>\n" +
+                            " <title>Catalog Report</title>" +
                             "<style>\n" +
                             "table, th, td {\n" +
                             "    border: 1px solid black;\n" +
@@ -41,7 +42,9 @@ public class ReportCommand implements Command {
                             "</style>\n" +
                             "</head>\n" +
                             "<body>\n" +
-                            "<table>\n");
+                            "<table>\n" +
+                            "<th>Title</th>" +
+                            "<th>Path</th><th>Year</th><th>Authors</th>");
 
         for(Document document : documents){
             htmlBuilder.append("<tr>\n" +
@@ -57,8 +60,9 @@ public class ReportCommand implements Command {
                 "</body>\n" +
                 "</html>");
 
-        try (PrintWriter out = new PrintWriter("report.html")) {
-            out.println(htmlBuilder);
+        try (PrintWriter outputFile = new PrintWriter(path)) {
+            outputFile.println(htmlBuilder.toString());
+            outputFile.flush();
         }
     }
 }

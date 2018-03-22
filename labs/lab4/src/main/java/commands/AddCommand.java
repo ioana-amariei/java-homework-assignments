@@ -8,7 +8,6 @@ package commands;
 import catalog.Catalog;
 import documents.Article;
 import documents.Book;
-import documents.Document;
 import documents.Manual;
 
 import java.util.Arrays;

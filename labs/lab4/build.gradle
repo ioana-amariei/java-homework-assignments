@@ -23,7 +23,6 @@ dependencies {
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 
-    // Java to HTML generator. Enjoy typesafe HTML generation.
-    compile 'com.j2html:j2html:1.2.2'
+    compile group: 'org.apache.ant', name: 'ant', version: '1.10.2'
 }
 
