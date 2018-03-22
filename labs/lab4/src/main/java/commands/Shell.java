@@ -30,7 +30,7 @@ public class Shell {
 
             String[] arguments = Commandline.translateCommandline(commandLine);
 
-            if (arguments.length < 2) {
+            if (arguments.length < 1) {
                 throw new IllegalArgumentException("Wrong number of arguments.");
             }
 
