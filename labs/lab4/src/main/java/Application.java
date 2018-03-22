@@ -14,7 +14,7 @@ public class Application {
 
         catalog.add(new Book("The Art of Computer Programming", "C:\\facultate\\an2\\sem2\\java\\java\\labs\\catalog\\tacp.ps", 1967, "Donald E. Knuth"));
         catalog.add(new Article("Mastering the Game of Go without Human Knowledge", "C:\\facultate\\an2\\sem2\\java\\java\\labs\\catalog\\AlphaGo.pdf", 2017, "David Silver", "Julian Schrittwieser", "Karen Simonyan"));
-        catalog.add(new Manual("Cookbook", "C:\\facultate\\an2\\sem2\\java\\java\\labs\\catalog\\cookbook.doc", 2001));
+        catalog.add(new Manual("Cookbook", "C:\\facultate\\an2\\sem2\\java\\java\\labs\\catalog\\cookbook.doc", 2019));
 
         catalog.save("C:\\facultate\\an2\\sem2\\java\\java\\labs\\catalog\\catalog.dat");
         catalog = Catalog.load("C:\\facultate\\an2\\sem2\\java\\java\\labs\\catalog\\catalog.dat");

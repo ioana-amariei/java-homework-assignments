@@ -12,7 +12,7 @@ import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
-
+/** The Receiver class */
 public class Catalog implements Serializable {
     private List <Document> documents;
 
@@ -20,12 +20,7 @@ public class Catalog implements Serializable {
         this.documents = new LinkedList <>();
     }
 
-    /**
-     * Loads the catalog from an external file.
-     *
-     * @param path the external file path from where the catalog is loaded
-     * @return a catalog of documents
-     */
+    // Loads the catalog from an external file.
     public static Catalog load(String path) throws IOException, ClassNotFoundException {
         FileInputStream fileInputStream = new FileInputStream(path);
         ObjectInputStream in = new ObjectInputStream(fileInputStream);
@@ -36,21 +31,22 @@ public class Catalog implements Serializable {
         return catalog;
     }
 
-    /**
-     * Adds a new entry into the catalog.
-     *
-     * @param document the document/document to be added
-     */
+    public List <Document> getDocuments() {
+        return documents;
+    }
+
+    // Adds a new entry into the catalog.
     public void add(Document document) {
+
         this.documents.add(document);
     }
 
-    /**
-     * Prints the content of the catalog on the screen.
-     */
+    // Prints the content of the catalog on the screen.
     public void list() {
+
         System.out.println(documents);
     }
+
 
     // Opens the documents using the native operating system application.
     public void open(String filename) throws IOException {
@@ -69,11 +65,7 @@ public class Catalog implements Serializable {
         }
     }
 
-    /**
-     * Saves the catalog to an external file (either as a text or binary, using object serialization).
-     *
-     * @param path the external file path for catalog to be saved
-     */
+    //Saves the catalog to an external file (either as a text or binary, using object serialization).
     public void save(String path) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(path);
         ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);

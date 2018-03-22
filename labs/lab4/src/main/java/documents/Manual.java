@@ -9,6 +9,7 @@ public class Manual extends Document {
     private String type;
 
     public Manual(String title, String path, int year, String... authors) {
+
         super(title, path, year, authors);
     }
 
