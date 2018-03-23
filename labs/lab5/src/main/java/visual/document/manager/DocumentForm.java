@@ -1,3 +1,7 @@
+/**
+ * @author Birsan Ioana (cas. Amariei)
+ * @author Gensthaler Octavian
+ */
 package visual.document.manager;
 
 import javax.swing.*;
@@ -44,7 +48,6 @@ public class DocumentForm extends JPanel{
         add(pathLabel);
         add(pathField);
 
-        addButton.setSize(100,30);
         add(addButton);
         addButton.addActionListener(new ActionListener() {
             @Override

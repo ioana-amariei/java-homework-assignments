@@ -1,3 +1,8 @@
+/**
+ * @author Birsan Ioana (cas. Amariei)
+ * @author Gensthaler Octavian
+ */
+
 package visual.document.manager;
 
 import javax.swing.*;
