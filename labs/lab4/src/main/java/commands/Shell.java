@@ -6,11 +6,13 @@
 package commands;
 
 import catalog.Catalog;
+import exceptions.InvalidCommand;
 import org.apache.tools.ant.types.Commandline;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,15 +69,13 @@ public class Shell {
                     command = new ReportCommand(catalog, parameters);
                     break;
                 default:
-                    System.out.println("The command is not valid.");
+                    throw new InvalidCommand(Arrays.toString(arguments));
             }
 
             if (command != null) {
                 command.execute();
-                command = null;
             }
 
-            catalog.list();
         }
     }
 }

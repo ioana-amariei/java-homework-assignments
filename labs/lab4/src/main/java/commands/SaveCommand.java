@@ -6,6 +6,7 @@
 package commands;
 
 import catalog.Catalog;
+import exceptions.InvalidSaveCommand;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,8 +17,9 @@ public class SaveCommand implements Command {
     private String path;
 
     public SaveCommand(Catalog catalog, List <String> parameters) {
-        if(parameters.size() != 1){
-            throw new IllegalArgumentException("The command is not valid.");
+        String command = "save" + parameters;
+        if(parameters.size() < 1){
+            throw new InvalidSaveCommand(command);
         }
 
         this.catalog = catalog;

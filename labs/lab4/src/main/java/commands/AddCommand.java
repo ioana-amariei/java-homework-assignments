@@ -9,6 +9,7 @@ import catalog.Catalog;
 import documents.Article;
 import documents.Book;
 import documents.Manual;
+import exceptions.InvalidAddCommand;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -21,8 +22,9 @@ public class AddCommand implements Command {
     private static final List<String> documentTypes = Arrays.asList("book", "article", "manual");
 
     public AddCommand(Catalog catalog, List<String> parameters) {
+        String command = "add" + parameters;
         if(parameters.size() < 4) {
-            throw new IllegalArgumentException("Wrong number of arguments.");
+            throw new InvalidAddCommand(command);
         }
 
         if(!documentTypes.contains(parameters.get(0))) {

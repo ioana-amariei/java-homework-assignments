@@ -2,6 +2,8 @@ package commands;
 
 import catalog.Catalog;
 import documents.Document;
+import exceptions.InvalidReportCommand;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
@@ -13,9 +15,12 @@ public class ReportCommand implements Command {
     private String path;
 
     public ReportCommand(Catalog catalog, List <String> parameters) {
+        String command = "report" + parameters;
+
         if(parameters.size() != 2){
-            throw new IllegalArgumentException("The command is not valid.");
+            throw new InvalidReportCommand(command);
         }
+
         if(parameters.get(0).compareTo("html") != 0){
             throw new IllegalArgumentException("Argument is invalid.");
         }

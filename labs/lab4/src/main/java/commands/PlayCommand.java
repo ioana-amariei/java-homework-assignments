@@ -6,6 +6,7 @@
 package commands;
 
 import catalog.Catalog;
+import exceptions.InvalidPlayCommand;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,8 +17,10 @@ public class PlayCommand implements Command {
     private String path;
 
     public PlayCommand(Catalog catalog, List <String> parameters) {
+        String command = "play" + parameters;
+
         if(parameters.size() != 1){
-            throw new IllegalArgumentException("The command is not valid.");
+            throw new InvalidPlayCommand(command);
         }
 
         this.catalog = catalog;

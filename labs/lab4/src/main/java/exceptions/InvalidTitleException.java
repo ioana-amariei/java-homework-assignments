@@ -7,6 +7,7 @@ package exceptions;
 
 public class InvalidTitleException extends RuntimeException{
     public InvalidTitleException(String title){
+
         super("Title should contain characters and spaces: " + title);
     }
 }

@@ -6,6 +6,7 @@
 package commands;
 
 import catalog.Catalog;
+import exceptions.InvalidLoadCommand;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,8 +16,10 @@ public class LoadCommand implements Command {
     private String path;
 
     public LoadCommand(List <String> parameters) {
+        String command = "load" + parameters;
+
         if(parameters.size() != 1){
-            throw new IllegalArgumentException("The command is not valid.");
+            throw new InvalidLoadCommand(command);
         }
 
         this.path = parameters.get(0);

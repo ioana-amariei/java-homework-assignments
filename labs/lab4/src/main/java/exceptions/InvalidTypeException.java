@@ -7,6 +7,7 @@ package exceptions;
 
 public class InvalidTypeException extends RuntimeException {
     public InvalidTypeException(String type){
+
         super("Type should contain only lower characters: " + type);
     }
 }
