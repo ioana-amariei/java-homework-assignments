@@ -6,7 +6,6 @@
 package visual.document.manager;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class ControlPanel extends JPanel {
     private final CatalogFrame frame;

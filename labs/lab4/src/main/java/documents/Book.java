@@ -21,8 +21,8 @@ public class Book extends Document {
 
     @Override
     public String toString() {
-        return "documents.Book{" + super.toString() + ", " +
+        return "Book{" + super.toString() + ", " +
                 "publisher='" + publisher + '\'' +
-                '}';
+                '}' + '\n';
     }
 }

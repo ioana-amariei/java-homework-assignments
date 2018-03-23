@@ -1,0 +1,15 @@
+add book "The Java" "C:\\facultate\\an2\\sem2\\java\\java\\labs\\catalog\\tacp.ps" 1265 "Donald"
+
+
+add article "Mastering the Game of Go without Human Knowledge" "C:\\facultate\\an2\\sem2\\java\\java\\labs\\catalog\\AlphaGo.pdf" 2017 "David Silver"
+
+add manual "CookBook" "C:\\facultate\\an2\\sem2\\java\\java\\labs\\catalog\\AlphaGo.pdf" 1980
+list
+
+save "C:\\facultate\\an2\\sem2\\java\\java\\labs\\catalog\\catalog.dat"
+
+load "C:\\facultate\\an2\\sem2\\java\\java\\labs\\catalog\\catalog.dat"
+
+play "C:\\facultate\\an2\\sem2\\java\\java\\labs\\catalog\\Presentation about Business Model Canvas.pdf"
+
+report html "report.html"

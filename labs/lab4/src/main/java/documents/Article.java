@@ -50,9 +50,9 @@ public class Article extends Document {
 
     @Override
     public String toString() {
-        return "documents.Article{" + super.toString() + ", " +
+        return "Article{" + super.toString() + ", " +
                 "journal='" + journal + '\'' +
                 ", conference='" + conference + '\'' +
-                '}';
+                '}' + '\n';
     }
 }

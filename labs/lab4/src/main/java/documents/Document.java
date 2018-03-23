@@ -91,7 +91,7 @@ public abstract class Document implements Serializable {
 
     @Override
     public String toString() {
-        return "Document{" +
+        return "{" +
                 "title='" + title + '\'' +
                 ", path='" + path + '\'' +
                 ", year=" + year +

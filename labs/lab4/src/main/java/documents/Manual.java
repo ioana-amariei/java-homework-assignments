@@ -30,8 +30,8 @@ public class Manual extends Document {
 
     @Override
     public String toString() {
-        return "documents.Manual{" + super.toString() + ", " +
+        return "Manual{" + super.toString() + ", " +
                 "type='" + type + '\'' +
-                '}';
+                '}' + '\n';
     }
 }
