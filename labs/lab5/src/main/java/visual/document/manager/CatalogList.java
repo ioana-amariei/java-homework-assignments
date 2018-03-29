@@ -7,6 +7,7 @@ package visual.document.manager;
 
 import catalog.Catalog;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 
 public class CatalogList extends JList {

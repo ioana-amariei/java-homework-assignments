@@ -25,13 +25,16 @@ public class DocumentForm extends JPanel {
     JLabel pathLabel = new JLabel("Path in the local file system");
     JLabel yearLabel = new JLabel("Publication year");
     JLabel authorsLabel = new JLabel("Authors");
+
     JTextField typeField = new JFormattedTextField();
     JTextField titleField = new JFormattedTextField();
     JTextField pathField = new JFormattedTextField();
     JSpinner yearField = new JSpinner(new SpinnerNumberModel(1950, 1900, 2017, 1));
     JTextField authorsField = new JFormattedTextField();
+
     JButton addButton = new JButton("Add to repository");
     JButton printButton = new JButton("Display catalog");
+    JButton clearButton = new JButton("Clear catalog table display");
 
     Box buttonBox = Box.createHorizontalBox();
     private int year;
@@ -46,27 +49,27 @@ public class DocumentForm extends JPanel {
 
     private void init() {
         add(typeLabel);
-        typeLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        typeLabel.setFont(new Font("Arial", Font.BOLD, 16));
         add(typeField);
-        typeField.setFont(new Font("Arial", Font.BOLD, 14));
+        typeField.setFont(new Font("Arial", Font.BOLD, 16));
         typeField.setForeground(Color.red);
 
         add(titleLabel);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
         add(titleField);
-        titleField.setFont(new Font("Arial", Font.BOLD, 14));
+        titleField.setFont(new Font("Arial", Font.BOLD, 16));
         titleField.setForeground(Color.red);
 
         add(pathLabel);
-        pathLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        pathLabel.setFont(new Font("Arial", Font.BOLD, 16));
         add(pathField);
-        pathField.setFont(new Font("Arial", Font.BOLD, 14));
+        pathField.setFont(new Font("Arial", Font.BOLD, 16));
         pathField.setForeground(Color.red);
 
         add(yearLabel);
-        yearLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        yearLabel.setFont(new Font("Arial", Font.BOLD, 16));
         add(yearField);
-        yearField.setFont(new Font("Arial", Font.BOLD, 14));
+        yearField.setFont(new Font("Arial", Font.BOLD, 16));
         yearField.setForeground(Color.red);
         yearField.addChangeListener(new ChangeListener() {
             @Override
@@ -76,13 +79,14 @@ public class DocumentForm extends JPanel {
         });
 
         add(authorsLabel);
-        authorsLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        authorsLabel.setFont(new Font("Arial", Font.BOLD, 16));
         add(authorsField);
-        authorsField.setFont(new Font("Arial", Font.BOLD, 14));
+        authorsField.setFont(new Font("Arial", Font.BOLD, 16));
         authorsField.setForeground(Color.red);
+        authorsField.add(new JSeparator(SwingConstants.VERTICAL));
 
         buttonBox.add(addButton);
-        addButton.setFont(new Font("Arial", Font.BOLD, 14));
+        addButton.setFont(new Font("Arial", Font.BOLD, 16));
         buttonBox.add(Box.createRigidArea(new Dimension(10,0)));
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -98,11 +102,21 @@ public class DocumentForm extends JPanel {
         });
 
         buttonBox.add(printButton);
-        printButton.setFont(new Font("Arial", Font.BOLD, 14));
+        printButton.setFont(new Font("Arial", Font.BOLD, 16));
+        buttonBox.add(Box.createRigidArea(new Dimension(10,0)));
         printButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 displayCatalog();
+            }
+        });
+
+        buttonBox.add(clearButton);
+        clearButton.setFont(new Font("Arial", Font.BOLD, 16));
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                hideCatalog();
             }
         });
 
@@ -122,6 +136,10 @@ public class DocumentForm extends JPanel {
     }
 
     private void displayCatalog(){
-        frame.list.printCatalog(frame.catalog);
+        frame.table.printCatalog();
+    }
+
+    private void hideCatalog(){
+        frame.table.hideCatalog();
     }
 }

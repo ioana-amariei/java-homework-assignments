@@ -39,9 +39,12 @@ public class ReportCommand implements Command {
         htmlBuilder.append("<!DOCTYPE html>\n" +
                             "<html>\n" +
                             "<head>\n" +
-                            " <title>Catalog Report</title>" +
-                            "<style>\n" +
-                            "table, th, td {\n" +
+                            " <title>Catalog Report</title><style>\n" +
+                            "table{\n" +
+                            "width:100%;\n" +
+                            "}\n" +
+                            "th{\n" +
+                            "height:50px;\n" +
                             "}\n" +
                             "tr:nth-child(even) {background-color: #f2f2f2;}\n" +
                             "th{\n" +
@@ -50,10 +53,11 @@ public class ReportCommand implements Command {
                             "}\n" +
                             "th, td {\n" +
                             "    border-bottom: 1px solid #ddd;\n" +
-                            "}" +
-                            "}\n" +
+                            "    padding: 15px;\n" +
+                            "    text-align: left;\n" +
+                            "}}\n" +
                             "</style>\n" +
-                            "</head>\n" +
+                            "</head>" +
                             "<body>\n" +
                             "<table>\n" +
                             "<th>Title</th>" +

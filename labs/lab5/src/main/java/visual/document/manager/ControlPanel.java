@@ -39,14 +39,14 @@ public class ControlPanel extends JPanel {
 
     private void init() {
         add(pathLabel);
-        pathLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        pathLabel.setFont(new Font("Arial", Font.BOLD, 16));
         add(pathField);
-        pathField.setFont(new Font("Arial", Font.BOLD, 14));
+        pathField.setFont(new Font("Arial", Font.BOLD, 16));
         pathField.setForeground(Color.red);
 
 
         controlBox.add(saveButton);
-        saveButton.setFont(new Font("Arial", Font.BOLD, 14));
+        saveButton.setFont(new Font("Arial", Font.BOLD, 16));
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,7 +67,7 @@ public class ControlPanel extends JPanel {
 
 
         controlBox.add(loadButton);
-        loadButton.setFont(new Font("Arial", Font.BOLD, 14));
+        loadButton.setFont(new Font("Arial", Font.BOLD, 16));
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,7 +87,7 @@ public class ControlPanel extends JPanel {
 
 
         controlBox.add(openButton);
-        openButton.setFont(new Font("Arial", Font.BOLD, 14));
+        openButton.setFont(new Font("Arial", Font.BOLD, 16));
         openButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -108,7 +108,7 @@ public class ControlPanel extends JPanel {
 
 
         controlBox.add(reportButton);
-        reportButton.setFont(new Font("Arial", Font.BOLD, 14));
+        reportButton.setFont(new Font("Arial", Font.BOLD, 16));
         reportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
