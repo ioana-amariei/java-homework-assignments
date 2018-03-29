@@ -5,7 +5,9 @@
 
 package visual.document.manager;
 
+import catalog.Catalog;
 import javax.swing.*;
+
 
 public class CatalogList extends JList {
     DefaultListModel model = new DefaultListModel<>();
@@ -17,8 +19,8 @@ public class CatalogList extends JList {
         this.setModel(model);
     }
 
-    public void addDocument(String item) {
-
-        model.addElement(item);
+    public void printCatalog(Catalog catalog){
+        model.addElement(catalog);
     }
+
 }

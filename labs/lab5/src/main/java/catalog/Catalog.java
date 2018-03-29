@@ -9,15 +9,32 @@ import documents.Document;
 
 import java.awt.*;
 import java.io.*;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /** The Receiver class */
 public class Catalog implements Serializable {
-    private List <Document> documents;
+    private Set<Document> documents;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Catalog)) return false;
+
+        Catalog catalog = (Catalog) o;
+
+        return documents.equals(catalog.documents);
+    }
+
+    @Override
+    public int hashCode() {
+        return documents.hashCode();
+    }
 
     public Catalog() {
-        this.documents = new LinkedList <>();
+        this.documents = new HashSet <>();
     }
 
     // Loads the catalog from an external file.
@@ -31,7 +48,7 @@ public class Catalog implements Serializable {
         return catalog;
     }
 
-    public List <Document> getDocuments() {
+    public Set <Document> getDocuments() {
         return documents;
     }
 

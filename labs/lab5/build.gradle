@@ -22,5 +22,8 @@ dependencies {
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
+
+    //Command line
+    compile group: 'org.apache.ant', name: 'ant', version: '1.10.2'
 }
 

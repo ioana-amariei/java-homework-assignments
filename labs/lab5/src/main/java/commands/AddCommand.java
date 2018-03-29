@@ -11,8 +11,6 @@ import documents.Book;
 import documents.Manual;
 import exceptions.InvalidAddCommand;
 
-import java.nio.file.InvalidPathException;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;

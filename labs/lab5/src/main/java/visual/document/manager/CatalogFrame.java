@@ -5,6 +5,8 @@
 
 package visual.document.manager;
 
+import catalog.Catalog;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,6 +14,7 @@ public class CatalogFrame extends JFrame {
     DocumentForm form;
     CatalogList list;
     ControlPanel control;
+    Catalog catalog;
 
     public CatalogFrame() {
         super("Visual Document Manager");
@@ -24,6 +27,7 @@ public class CatalogFrame extends JFrame {
         form = new DocumentForm(this);
         list = new CatalogList();
         control = new ControlPanel(this);
+        catalog = new Catalog();
     }
 
     private void addComponents(){
