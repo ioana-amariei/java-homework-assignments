@@ -54,7 +54,7 @@ public class ReportCommand implements Command {
                             "th, td {\n" +
                             "    border-bottom: 1px solid #ddd;\n" +
                             "    padding: 15px;\n" +
-                            "    text-align: left;\n" +
+                            "    text-align: center;\n" +
                             "}}\n" +
                             "</style>\n" +
                             "</head>" +

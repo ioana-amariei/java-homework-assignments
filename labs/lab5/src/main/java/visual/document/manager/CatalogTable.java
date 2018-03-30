@@ -9,7 +9,7 @@ import java.util.Set;
 public class CatalogTable extends JTable {
     private final CatalogFrame frame;
     DefaultTableModel model = new DefaultTableModel(new String[]{"Title", "Path", "Year", "Author(s)"}, 0);
-    JTable table = new JTable(model);
+    private JTable table = new JTable(model);
 
     public CatalogTable(CatalogFrame frame) {
         this.frame = frame;

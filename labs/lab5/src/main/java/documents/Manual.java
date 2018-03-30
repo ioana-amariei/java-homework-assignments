@@ -8,6 +8,10 @@ import exceptions.InvalidTypeException;
 public class Manual extends Document {
     private String type;
 
+    public Manual(String title, String path, int year, String... authors) {
+        super(title, path, year, authors);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -24,11 +28,6 @@ public class Manual extends Document {
         int result = super.hashCode();
         result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
-    }
-
-    public Manual(String title, String path, int year, String... authors) {
-
-        super(title, path, year, authors);
     }
 
     public String getType() {

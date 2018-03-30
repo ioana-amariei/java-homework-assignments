@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-/* The test class or client. */
+/* The test class or client in Command Design Pattern. */
 public class Shell {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         String commandLine;

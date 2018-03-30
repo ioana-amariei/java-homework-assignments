@@ -12,21 +12,26 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import static visual.document.manager.LookAndFeel.FONT_LOOK;
+import static visual.document.manager.LookAndFeel.HORIZONTAL_SPACE;
+import static visual.document.manager.LookAndFeel.VERICAL_SPACE;
 
 
 public class ControlPanel extends JPanel {
     private final CatalogFrame frame;
 
-    JLabel pathLabel = new JLabel("Save to / Load from / Open");
-    JTextField pathField = new JFormattedTextField();
+    private final JLabel pathLabel = new JLabel("Save to / Load from / Open");
+    private final JTextField pathField = new JFormattedTextField();
 
-    Box controlBox = Box.createHorizontalBox();
-    JButton loadButton = new JButton("Load");
-    JButton saveButton = new JButton("Save");
-    JButton openButton = new JButton("Open");
-    JButton reportButton = new JButton("Report");
+    private final Box controlBox = Box.createHorizontalBox();
+    private final JButton loadButton = new JButton("Load");
+    private final JButton saveButton = new JButton("Save");
+    private final JButton openButton = new JButton("Open");
+    private final JButton reportButton = new JButton("Report");
 
 
     public ControlPanel(CatalogFrame frame) {
@@ -39,19 +44,18 @@ public class ControlPanel extends JPanel {
 
     private void init() {
         add(pathLabel);
-        pathLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        pathLabel.setFont(FONT_LOOK);
         add(pathField);
-        pathField.setFont(new Font("Arial", Font.BOLD, 16));
+        pathField.setFont(FONT_LOOK);
         pathField.setForeground(Color.red);
 
 
         controlBox.add(saveButton);
-        saveButton.setFont(new Font("Arial", Font.BOLD, 16));
+        saveButton.setFont(FONT_LOOK);
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                List<String> parameters = new LinkedList <>();
-                parameters.add(pathField.getText());
+                List<String> parameters = Arrays.asList(pathField.getText());
                 Command command = new SaveCommand(frame.catalog, parameters);
 
                 try {
@@ -67,12 +71,11 @@ public class ControlPanel extends JPanel {
 
 
         controlBox.add(loadButton);
-        loadButton.setFont(new Font("Arial", Font.BOLD, 16));
+        loadButton.setFont(FONT_LOOK);
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                List<String> parameters = new LinkedList <>();
-                parameters.add(pathField.getText());
+                List<String> parameters = Arrays.asList(pathField.getText());
                 Command command = new LoadCommand(parameters);
                 try {
                     command.execute();
@@ -83,16 +86,15 @@ public class ControlPanel extends JPanel {
                 }
             }
         });
-        controlBox.add(Box.createRigidArea(new Dimension(10,0)));
+        controlBox.add(HORIZONTAL_SPACE);
 
 
         controlBox.add(openButton);
-        openButton.setFont(new Font("Arial", Font.BOLD, 16));
+        openButton.setFont(FONT_LOOK);
         openButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                List<String> parameters = new LinkedList <>();
-                parameters.add(pathField.getText());
+                List<String> parameters = Arrays.asList(pathField.getText());
                 Command command = new PlayCommand(frame.catalog, parameters);
 
                 try {
@@ -104,17 +106,16 @@ public class ControlPanel extends JPanel {
                 }
             }
         });
-        controlBox.add(Box.createRigidArea(new Dimension(10,0)));
+        controlBox.add(HORIZONTAL_SPACE);
 
 
         controlBox.add(reportButton);
-        reportButton.setFont(new Font("Arial", Font.BOLD, 16));
+        reportButton.setFont(FONT_LOOK);
         reportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 List<String> parameters = new LinkedList <>();
-                parameters.add("html");
-                parameters.add(pathField.getText());
+                parameters = Arrays.asList("html", pathField.getText());
                 Command command = new ReportCommand(frame.catalog, parameters);
 
                 try {
@@ -126,7 +127,7 @@ public class ControlPanel extends JPanel {
                 }
             }
         });
-        controlBox.add(Box.createRigidArea(new Dimension(0,10)));
+        controlBox.add(VERICAL_SPACE);
 
         add(controlBox);
     }

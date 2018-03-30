@@ -12,6 +12,10 @@ public class Article extends Document {
     private String journal;
     private String conference;
 
+    public Article(String title, String path, int year, String... authors) {
+        super(title, path, year, authors);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -30,10 +34,6 @@ public class Article extends Document {
         result = 31 * result + (journal != null ? journal.hashCode() : 0);
         result = 31 * result + (conference != null ? conference.hashCode() : 0);
         return result;
-    }
-
-    public Article(String title, String path, int year, String... authors) {
-        super(title, path, year, authors);
     }
 
     public String getJournal() {

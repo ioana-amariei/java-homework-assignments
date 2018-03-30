@@ -14,24 +14,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-/** The Receiver class */
+/**
+ * Manipulates the contents of a document catalog (add, save, load, open, list).
+ * The Receiver class in Command Design Pattern
+ */
 public class Catalog implements Serializable {
-    private Set<Document> documents;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Catalog)) return false;
-
-        Catalog catalog = (Catalog) o;
-
-        return documents.equals(catalog.documents);
-    }
-
-    @Override
-    public int hashCode() {
-        return documents.hashCode();
-    }
+    private Set <Document> documents;
 
     public Catalog() {
         this.documents = new HashSet <>();
@@ -54,7 +42,7 @@ public class Catalog implements Serializable {
 
     // Adds a new entry into the catalog.
     public void add(Document document) {
-        if(!documents.contains(document)) {
+        if (!documents.contains(document)) {
             this.documents.add(document);
         }
     }
