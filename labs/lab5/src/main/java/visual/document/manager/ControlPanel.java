@@ -49,7 +49,6 @@ public class ControlPanel extends JPanel {
         pathField.setFont(FONT_LOOK);
         pathField.setForeground(Color.red);
 
-
         controlBox.add(saveButton);
         saveButton.setFont(FONT_LOOK);
         saveButton.addActionListener(new ActionListener() {
@@ -67,7 +66,7 @@ public class ControlPanel extends JPanel {
                 }
             }
         });
-        controlBox.add(Box.createRigidArea(new Dimension(10,0)));
+        controlBox.add(HORIZONTAL_SPACE);
 
 
         controlBox.add(loadButton);

@@ -1,14 +1,19 @@
 package visual.document.manager;
 
 import documents.Document;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Set;
 
+import static visual.document.manager.LookAndFeel.TABLE_COLUMN_NAMES;
+import static visual.document.manager.LookAndFeel.TABLE_CONTENT_FONT;
+import static visual.document.manager.LookAndFeel.TABLE_HEADER_FONT;
+
 public class CatalogTable extends JTable {
     private final CatalogFrame frame;
-    DefaultTableModel model = new DefaultTableModel(new String[]{"Title", "Path", "Year", "Author(s)"}, 0);
+    DefaultTableModel model = new DefaultTableModel(TABLE_COLUMN_NAMES,0);
     private JTable table = new JTable(model);
 
     public CatalogTable(CatalogFrame frame) {
@@ -18,18 +23,20 @@ public class CatalogTable extends JTable {
         this.setLayout(new BorderLayout());
     }
 
-
     private void init() {
-        table.setFont(new Font("Arial", Font.BOLD, 18));
+        table.setFont(TABLE_CONTENT_FONT);
         table.setRowHeight(30);
-        table.setIntercellSpacing(new Dimension(0,5));
-        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 20));
+        table.setIntercellSpacing(new Dimension(0, 5));
+        table.getTableHeader().setFont(TABLE_HEADER_FONT);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(0,0,1850,600);
+        scrollPane.setBounds(0, 0, 1850, 600);
+
         add(scrollPane);
     }
 
     public void printCatalog() {
+        clear();
+
         Set <Document> documents = frame.catalog.getDocuments();
         for (Document document : documents) {
             Object[] data = new Object[4];
@@ -42,11 +49,9 @@ public class CatalogTable extends JTable {
         }
     }
 
-    public void hideCatalog() {
-        for (int row = model.getRowCount() - 1; row >= 0; row--){
-            model.removeRow(row);
-            System.out.println("Removed " + row);
-        }
+    public void clear() {
+        model.setRowCount(0);
     }
 }
+
 

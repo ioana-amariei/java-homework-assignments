@@ -22,19 +22,22 @@ public class CatalogFrame extends JFrame {
         addComponents();
         this.pack();
     }
+
     private void init() {
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         form = new DocumentForm(this);
         table = new CatalogTable(this);
         control = new ControlPanel(this);
         catalog = new Catalog();
     }
 
-    private void addComponents(){
+    private void addComponents() {
         add(form, BorderLayout.NORTH);
         form.add(new JSeparator(SwingConstants.VERTICAL));
+
         add(table, BorderLayout.CENTER);
         table.add(new JSeparator(SwingConstants.VERTICAL));
+
         add(control, BorderLayout.SOUTH);
         control.add(new JSeparator(SwingConstants.VERTICAL));
     }

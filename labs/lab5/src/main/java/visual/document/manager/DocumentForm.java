@@ -119,7 +119,7 @@ public class DocumentForm extends JPanel {
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                hideCatalog();
+                clear();
             }
         });
 
@@ -142,7 +142,7 @@ public class DocumentForm extends JPanel {
         frame.table.printCatalog();
     }
 
-    private void hideCatalog(){
-        frame.table.hideCatalog();
+    private void clear(){
+        frame.table.clear();
     }
 }
