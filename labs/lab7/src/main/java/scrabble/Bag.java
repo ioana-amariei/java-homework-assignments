@@ -1,21 +1,20 @@
 package scrabble;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
-
+// Source: http://www.java2s.com/Code/Java/Development-Class/generatestringconsistsofrandomcharacters.htm
 //An instance of this class will hold all the available letters.
 public class Bag {
     private final Queue <Character> letters = new LinkedList <>();
 
     public Bag() {
-        // Add all the letters from 'a' to 'z' in the bag.
-        String alphabet = "abcdefeghjiklmnopqrstuvwxyz";
+        String alphabet = "  aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz";
+//        String alphabet = "  abcdefghhijklmnopqrstuvwxyz";
+
+        Random random = new Random();
 
         for (int i = 0; i < alphabet.length(); i++) {
-            letters.add(alphabet.charAt(i));
+            letters.add(alphabet.charAt(random.nextInt(alphabet.length())));
         }
     }
 
@@ -36,8 +35,7 @@ public class Bag {
 
     @Override
     public String toString() {
-        return "Bag{" +
-                "letters=" + letters +
+        return "letters=" + letters +
                 '}';
     }
 }

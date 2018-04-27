@@ -1,7 +1,7 @@
-import scrabble.Bag;
-import scrabble.Board;
-import scrabble.Game;
-import scrabble.Player;
+import scrabble.*;
+
+import java.util.TimerTask;
+
 
 public class Application {
     public static void main(String args[]) {

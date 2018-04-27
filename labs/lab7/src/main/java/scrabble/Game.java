@@ -5,10 +5,14 @@ import java.util.List;
 
 
 public class Game {
+    private Dictionary dictionary;
+    private final List <Player> players = new ArrayList <>();
     private Bag bag;
     private Board board;
-    //private Dictionary dictionary;
-    private final List<Player> players = new ArrayList<>();
+
+    public Game() {
+        this.dictionary = new EnglishDictionary();
+    }
 
     public List <Player> getPlayers() {
         return players;
@@ -37,15 +41,39 @@ public class Game {
 
     //Create the method that will start the game: start one thread for each player
     public void start() {
-        System.out.println("START GAME!" + "\n");
-
-        for (Player player : players){
-           this.setBag(new Bag());
-            player.run();
+        for (Player player : players) {
+            new Thread(player).start();
         }
+    }
 
-        System.out.println("\n");
-        System.out.println("GAME FINISHED!");
+    public void displayCurrentTime(){
+        // display game time
+        TimeKeeper stopwatch = new TimeKeeper();
+        stopwatch.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Time elapsed in seconds: " + stopwatch.getElapsedTimeSeconds() + "\n");
+    }
+
+
+    public void displayResults(){
+        try {
+            Thread.sleep(2000);
+            System.out.println("\n Results:");
+
+            for(Player player : players){
+                System.out.println("Player: " + player.getName() + " obtained: "  + player.getScore() + " points.");
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean finished(){
+        return bag.getLetters().isEmpty() || players.size() > 26;
     }
 
     @Override
@@ -54,4 +82,9 @@ public class Game {
                 "bag=" + bag +
                 '}';
     }
+
+    public Dictionary getDictionary() {
+        return dictionary;
+    }
+
 }
