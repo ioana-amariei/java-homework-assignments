@@ -14,7 +14,7 @@ public class Board {
 
     public void addWord(Player player, String word){
         this.words.add(word);
-        System.out.println( " Player " + player + " submitted the word " + word);
+        System.out.println( " Player " + player + " submitted the word: " + "\"" + word + "\"");
     }
 
 }

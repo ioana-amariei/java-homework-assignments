@@ -5,8 +5,8 @@ import java.util.List;
 
 
 public class Game {
-    private Dictionary dictionary;
     private final List <Player> players = new ArrayList <>();
+    private Dictionary dictionary;
     private Bag bag;
     private Board board;
 
@@ -41,38 +41,28 @@ public class Game {
 
     //Create the method that will start the game: start one thread for each player
     public void start() {
+        System.out.println("Initial bag size: " + this.getBag().getLetters().size());
+
         for (Player player : players) {
             new Thread(player).start();
         }
+//
+//        Result result = new Result(this);
+//        new Thread(result).start();
     }
 
-    public void displayCurrentTime(){
-        // display game time
-        TimeKeeper stopwatch = new TimeKeeper();
-        stopwatch.start();
+    public void displayCurrentTime() {
+        TimeKeeper time = new TimeKeeper();
         try {
             Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Time elapsed in seconds: " + stopwatch.getElapsedTimeSeconds() + "\n");
-    }
-
-
-    public void displayResults(){
-        try {
-            Thread.sleep(2000);
-            System.out.println("\n Results:");
-
-            for(Player player : players){
-                System.out.println("Player: " + player.getName() + " obtained: "  + player.getScore() + " points.");
-            }
+            System.out.println("Time elapsed in seconds: " + time.getElapsedTimeSeconds() + "\n");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean finished(){
+
+    public boolean finished() {
         return bag.getLetters().isEmpty() || players.size() > 26;
     }
 

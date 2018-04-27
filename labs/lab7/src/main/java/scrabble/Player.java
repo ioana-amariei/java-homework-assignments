@@ -2,7 +2,6 @@ package scrabble;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TimerTask;
 
 public class Player implements Runnable {
     private String name;
@@ -51,17 +50,20 @@ public class Player implements Runnable {
         List <Character> extracted = new LinkedList <>();
         extractCharacters(game, extracted, 7);
 
+        System.out.println("Current bag size: " + game.getBag().getLetters().size());
 
         while (!game.finished()) {
             game.displayCurrentTime();
 
             System.out.println(this + " extracted: " + extracted.size() + " tiles: " + extracted);
+
             List <String> words = determineAcceptableWords(extracted);
             System.out.println("List of possible words for player:" + this.getName() + " : " + words + "\n");
 
             if (words.isEmpty()) {
                 extractCharacters(game, extracted, 1);
             } else {
+                // submits the longest word possible
                 String word = words.get(words.size() - 1);
 
                 submitWord(word);
@@ -78,9 +80,9 @@ public class Player implements Runnable {
                     extractCharacters(game, extracted, bagSize);
                 }
             }
-        }
 
-        game.displayResults();
+            System.out.println("Current bag size: " + game.getBag().getLetters().size());
+        }
     }
 
     private void removeFromExtracted(List <Character> extracted, String word) {
@@ -175,7 +177,7 @@ public class Player implements Runnable {
 
     private void generateCombinations(List <Character> letters, int length, int currentLength, StringBuilder word, List <String> combinations) {
         if (currentLength == length) {
-            if(!combinations.contains(word.toString())) {
+            if (!combinations.contains(word.toString())) {
                 combinations.add(word.toString());
             }
         } else if (currentLength < length) {

@@ -1,10 +1,10 @@
 import scrabble.*;
 
-import java.util.TimerTask;
-
-
 public class Application {
     public static void main(String args[]) {
+        TimeKeeper time = new TimeKeeper();
+        new Thread(time).start();
+
         Game game = new Game();
 
         game.setBag(new Bag());
@@ -14,5 +14,10 @@ public class Application {
         game.addPlayer(new Player("Player 3"));
 
         game.start();
+
+        Result result = new Result(game);
+        if(game.finished()) {
+            new Thread(result).start();
+        }
     }
 }
