@@ -46,21 +46,13 @@ public class Game {
         for (Player player : players) {
             new Thread(player).start();
         }
-//
-//        Result result = new Result(this);
-//        new Thread(result).start();
     }
 
     public void displayCurrentTime() {
-        TimeKeeper time = new TimeKeeper();
-        try {
-            Thread.sleep(1000);
-            System.out.println("Time elapsed in seconds: " + time.getElapsedTimeSeconds() + "\n");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread thread = new Thread(new TimeKeeper());
+        thread.setDaemon(true);
+        thread.start();
     }
-
 
     public boolean finished() {
         return bag.getLetters().isEmpty() || players.size() > 26;

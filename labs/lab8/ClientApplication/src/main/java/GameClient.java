@@ -8,37 +8,76 @@ import java.util.Scanner;
 //An instance of this class will read commands from the keyboard and it will send them to the server.
 // The client stops when it reads from the keyboard the string "exit".
 public class GameClient {
-    private final static String SERVER_ADDRESS = "127.0.0.1";
-    private final static int PORT = 8100;
+    private int max;
+    private Socket socket;
+    PrintWriter out;
+    BufferedReader in;
+
+    public GameClient() throws IOException {
+        socket = new Socket("127.0.0.1", 8100);
+        out = new PrintWriter(socket.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+    }
 
     public static void main(String[] args) throws IOException {
         GameClient client = new GameClient();
+        client.start();
+    }
+
+    public void start() throws IOException {
         while (true) {
-            String request = client.readFromKeyboard();
+            String request = readFromKeyboard();
             if (request.equalsIgnoreCase("exit")) {
                 break;
             } else {
-                client.sendRequestToServer(request);
+                sendRequestToServer(request);
             }
         }
     }
 
-    private void sendRequestToServer(String request) throws IOException {
-        Socket socket = new Socket(SERVER_ADDRESS, PORT);
+    private void sendRequestToServer(String command) throws IOException {
+        if (command.equals("create")) {
+            sendCreateRequest(out);
+            System.out.println(in.readLine());
+        } else if (command.equals("submit")) {
+            sendSubmitRequest(out);
+            System.out.println(in.readLine());
+        } else if (command.equals("quit")) {
+            out.println("quit");
+            System.out.println(in.readLine());
+        } else {
+            System.out.println("Not a valid command");
+        }
+    }
 
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    private void sendSubmitRequest(PrintWriter out) {
+        out.println("submit");
 
-        // send a request to the server
-        out.println(request);
+        int number = 0;
+        while (number <= 1 || number >= max) {
+            System.out.println("Enter a number between 1 and " + max);
+            number = Integer.parseInt(readFromKeyboard());
+        }
 
-        // receive response from server
-        String response = in.readLine();
-        System.out.println(response);
+        out.println(number);
+    }
+
+    private void sendCreateRequest(PrintWriter out) {
+        out.println("create");
+
+        System.out.println("Enter player name: ");
+        String name = readFromKeyboard();
+        out.println(name);
+
+        System.out.println("Enter max number: ");
+        max = Integer.parseInt(readFromKeyboard());
+        out.println(max);
     }
 
     private String readFromKeyboard() {
         Scanner scanner = new Scanner(System.in);
-        return scanner.next();
+        return scanner.nextLine();
     }
+
 }

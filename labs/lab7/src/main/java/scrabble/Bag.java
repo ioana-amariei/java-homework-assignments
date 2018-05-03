@@ -9,7 +9,7 @@ public class Bag {
 
     public Bag() {
         String alphabet = "  aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrssssttttttuuuuvvwwxyyz";
-//        String alphabet = "  abcdefghhijklmnopqrstuvwxyz";
+//        String alphabet = "abcdefghhijklmnopqrstuvwxyz";
 
         Random random = new Random();
 

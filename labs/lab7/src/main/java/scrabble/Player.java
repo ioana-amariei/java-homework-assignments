@@ -53,6 +53,7 @@ public class Player implements Runnable {
         System.out.println("Current bag size: " + game.getBag().getLetters().size());
 
         while (!game.finished()) {
+
             game.displayCurrentTime();
 
             System.out.println(this + " extracted: " + extracted.size() + " tiles: " + extracted);
@@ -83,6 +84,9 @@ public class Player implements Runnable {
 
             System.out.println("Current bag size: " + game.getBag().getLetters().size());
         }
+
+        Result result = new Result(game);
+        result.display();
     }
 
     private void removeFromExtracted(List <Character> extracted, String word) {
