@@ -36,16 +36,21 @@ public class ClientThread extends Thread {
                     game = new GuessingGame(name, max);
                     out.println("Welcome!!!");
                     System.out.println("Created game: " + game);
-                } else  if (command.equals("submit")){
+                } else  if (command.equals("submit")) {
                     Integer guess = Integer.parseInt(in.readLine());
                     String result = game.submit(guess);
                     out.println(result);
+                } else if (command.equals("stop")){
+                    server.stop();
                 } else{
                     out.println("The command is not valid: " + command);
                 }
 
                 command = in.readLine();
             }
+
+            out.println("Loser, the number was: " + game.getNumberToGuess());
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

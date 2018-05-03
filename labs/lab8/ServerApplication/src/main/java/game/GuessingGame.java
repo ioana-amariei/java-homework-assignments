@@ -17,6 +17,10 @@ public class GuessingGame {
         this.attempts = 0;
     }
 
+    public int getNumberToGuess() {
+        return numberToGuess;
+    }
+
     @Override
     public String toString() {
         return "GuessingGame{" +

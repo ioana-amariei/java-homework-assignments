@@ -46,6 +46,8 @@ public class GameClient {
         } else if (command.equals("quit")) {
             out.println("quit");
             System.out.println(in.readLine());
+        } else if (command.equals("stop")){
+            out.println("stop");
         } else {
             System.out.println("Not a valid command");
         }
