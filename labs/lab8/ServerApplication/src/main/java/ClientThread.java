@@ -1,3 +1,4 @@
+import game.Countdown;
 import game.GuessingGame;
 
 import java.io.BufferedReader;
@@ -18,6 +19,9 @@ public class ClientThread extends Thread {
     @Override
     public void run() {
         GameServer.aliveConnections++;
+        Countdown countdown = new Countdown();
+        countdown.setCountDown(50);
+        countdown.reset();
 
         BufferedReader in = null;
         PrintWriter out = null;
@@ -49,6 +53,10 @@ public class ClientThread extends Thread {
                     out.println("The command is not valid: " + command);
                 }
 
+                if(countdown.getSecondsLeft() == 0) {
+                    System.out.println("Time exceeded ... Exit");
+                    closeSocket();
+                }
                 command = in.readLine();
                 System.out.println("Received command: " + command);
             }
@@ -64,6 +72,9 @@ public class ClientThread extends Thread {
 
 
     public void closeSocket() {
+        if(GameServer.aliveConnections > 0) {
+            System.out.println("Close socket for connection " + GameServer.aliveConnections);
+        }
         --GameServer.aliveConnections;
         try {
             socket.close();
