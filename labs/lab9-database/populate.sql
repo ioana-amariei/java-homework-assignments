@@ -1,0 +1,71 @@
+--ALTER SESSION SET CURRENT_SCHEMA = NEW_DBA;
+
+ALTER TABLE ALBUMS
+DROP CONSTRAINT artists_fk;
+/
+
+ALTER TABLE ALBUMS
+DROP CONSTRAINT albums_pk;
+/
+
+ALTER TABLE ARTISTS
+DROP CONSTRAINT artists_pk;
+/
+
+DROP TABLE ARTISTS;
+/
+
+DROP TABLE ALBUMS;
+/
+
+CREATE TABLE ARTISTS (
+      id NUMBER NOT NULL,
+      name VARCHAR2(100) NOT NULL,
+      country VARCHAR2(100),
+      CONSTRAINT artists_pk PRIMARY KEY (id)
+);
+/
+
+CREATE SEQUENCE artists_seq START WITH 1;
+/
+
+CREATE OR REPLACE TRIGGER artists_trigger
+BEFORE INSERT ON ARTISTS
+FOR EACH ROW
+
+BEGIN
+  SELECT artists_seq.NEXTVAL
+  INTO :new.id
+  FROM dual;
+END;
+/
+
+CREATE TABLE ALBUMS (
+      id NUMBER NOT NULL,
+      name VARCHAR2(100) NOT NULL,
+      artist_id NUMBER NOT NULL,
+      release_year NUMBER,
+      CONSTRAINT albums_pk PRIMARY KEY (id),
+      CONSTRAINT artists_fk FOREIGN KEY(artist_id) REFERENCES ARTISTS(id) ON DELETE CASCADE
+);
+/
+
+CREATE SEQUENCE albums_seq START WITH 1;
+/
+
+CREATE OR REPLACE TRIGGER albums_trigger
+BEFORE INSERT ON ALBUMS
+FOR EACH ROW
+
+BEGIN
+  SELECT albums_seq.NEXTVAL
+  INTO :new.id
+  FROM dual;
+END;
+/
+
+-- POPULATE TABLES
+INSERT INTO ARTISTS (name, country) VALUES ('ABA', 'Sweeden');
+INSERT INTO ARTISTS (name, country) VALUES ('SHINee', 'South Korea');
+
+INSERT INTO ALBUMS (name, artist_id, release_year) VALUES ('Relax', 22, 2017);
