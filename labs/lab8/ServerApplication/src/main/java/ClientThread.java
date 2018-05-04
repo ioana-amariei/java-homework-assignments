@@ -17,6 +17,8 @@ public class ClientThread extends Thread {
 
     @Override
     public void run() {
+        GameServer.aliveConnections++;
+
         BufferedReader in = null;
         PrintWriter out = null;
         try {
@@ -28,7 +30,7 @@ public class ClientThread extends Thread {
             System.out.println("Received command: " + command);
 
             GuessingGame game = null;
-            while(!command.equals("quit")) {
+            while (!command.equals("quit")) {
                 if (command.equals("create")) {
                     String name = in.readLine();
                     Integer max = Integer.parseInt(in.readLine());
@@ -36,17 +38,19 @@ public class ClientThread extends Thread {
                     game = new GuessingGame(name, max);
                     out.println("Welcome!!!");
                     System.out.println("Created game: " + game);
-                } else  if (command.equals("submit")) {
+                } else if (command.equals("submit")) {
                     Integer guess = Integer.parseInt(in.readLine());
                     String result = game.submit(guess);
                     out.println(result);
-                } else if (command.equals("stop")){
+                } else if (command.equals("stop")) {
+                    closeSocket();
                     server.stop();
-                } else{
+                } else {
                     out.println("The command is not valid: " + command);
                 }
 
                 command = in.readLine();
+                System.out.println("Received command: " + command);
             }
 
             out.println("Loser, the number was: " + game.getNumberToGuess());
@@ -54,13 +58,18 @@ public class ClientThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try {
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            closeSocket();
         }
+    }
 
+
+    public void closeSocket() {
+        --GameServer.aliveConnections;
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

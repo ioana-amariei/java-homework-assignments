@@ -7,6 +7,7 @@ import java.net.Socket;
 public class GameServer {
     private ServerSocket serverSocket;
     private boolean waitingForClientConnections = false;
+    public static int aliveConnections = 0;
 
     public static void main(String[] args) throws IOException {
         GameServer server = new GameServer();
@@ -33,6 +34,7 @@ public class GameServer {
 
     public void stop() throws IOException {
         waitingForClientConnections = false;
+        while (aliveConnections > 0){}
         serverSocket.close();
     }
 }
