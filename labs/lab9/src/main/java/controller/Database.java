@@ -2,6 +2,7 @@ package controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Database {
@@ -15,7 +16,8 @@ public class Database {
 
     public static Connection getConnection() {
         if (connection == null) {
-            createConnection();
+            connection = createConnection();
+            setCurrentSchema(connection);
         }
         return connection;
     }
@@ -29,7 +31,7 @@ public class Database {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Connection succeeded");
+//            System.out.println("Connection succeeded");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -46,6 +48,7 @@ public class Database {
 
     public static void commit(){
         try {
+            connection.setAutoCommit(false);
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,6 +58,18 @@ public class Database {
     public static void rollback(){
         try {
             connection.rollback();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void setCurrentSchema(Connection connection) {
+        String statement = "ALTER SESSION SET CURRENT_SCHEMA = NEW_DBA";
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }

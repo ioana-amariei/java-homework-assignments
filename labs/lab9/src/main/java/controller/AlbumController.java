@@ -1,25 +1,19 @@
 package controller;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.*;
 
 public class AlbumController {
-    public void create(String name, int artistId,  int releaseYear) throws SQLException {
+    public void create(String name, int artistId, int releaseYear) throws SQLException {
         Connection connection = Database.getConnection();
 
-        try (PreparedStatement pstmt = connection.prepareStatement("insert into albums (name, artistId, releaseYear) values (?, ?, ?)")) {
-            pstmt.setString(1, name);
-            pstmt.setInt(2, artistId);
-            pstmt.setInt(2, releaseYear);
-            pstmt.executeUpdate();
-        }
-    }
-    public Integer findByName(String name) throws SQLException {
-        Connection connection = Database.getConnection();
+        String statement = "INSERT INTO ALBUMS (name, artist_id, release_year) VALUES (?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(statement);
 
-        try (Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery("select id from albums where name='" + name + "'")) {
-            return resultSet.next() ? resultSet.getInt(1) : null;
-        }
+        preparedStatement.setString(1, name);
+        preparedStatement.setInt(2, artistId);
+        preparedStatement.setInt(3, releaseYear);
+        preparedStatement.execute();
     }
 
     //displays all the albums from the specified artist
@@ -27,9 +21,10 @@ public class AlbumController {
         Connection connection = Database.getConnection();
 
         try (Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery("select name from albums where artist_id='" + id + "'")) {
-            if(resultSet.next()) {
-                System.out.println(resultSet.getString(2));
+             ResultSet resultSet = stmt.executeQuery("SELECT * FROM ALBUMS WHERE artist_id='" + id + "'")) {
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                System.out.println(name);
             }
         }
     }

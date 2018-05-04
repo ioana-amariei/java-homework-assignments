@@ -1,4 +1,4 @@
---ALTER SESSION SET CURRENT_SCHEMA = NEW_DBA;
+ALTER SESSION SET CURRENT_SCHEMA = NEW_DBA;
 
 ALTER TABLE ALBUMS
 DROP CONSTRAINT artists_fk;
@@ -46,7 +46,7 @@ CREATE TABLE ALBUMS (
       artist_id NUMBER NOT NULL,
       release_year NUMBER,
       CONSTRAINT albums_pk PRIMARY KEY (id),
-      CONSTRAINT artists_fk FOREIGN KEY(artist_id) REFERENCES ARTISTS(id) ON DELETE CASCADE
+      CONSTRAINT artists_fk FOREIGN KEY(artist_id) REFERENCES ARTISTS(id)
 );
 /
 
@@ -63,9 +63,3 @@ BEGIN
   FROM dual;
 END;
 /
-
--- POPULATE TABLES
-INSERT INTO ARTISTS (name, country) VALUES ('ABA', 'Sweeden');
-INSERT INTO ARTISTS (name, country) VALUES ('SHINee', 'South Korea');
-
-INSERT INTO ALBUMS (name, artist_id, release_year) VALUES ('Relax', 22, 2017);
