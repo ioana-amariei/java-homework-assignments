@@ -8,8 +8,8 @@ import java.sql.SQLException;
 public class Database {
     private static final  String DRIVER = "oracle.jdbc.driver.OracleDriver";
     private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    private static final String USER = "new_dba";
-    private static final String PASSWORD = "sql";
+    private static final String USER = "student";
+    private static final String PASSWORD = "STUDENT";
     private static Connection connection = null;
 
     private Database() { }
@@ -64,7 +64,7 @@ public class Database {
     }
 
     private static void setCurrentSchema(Connection connection) {
-        String statement = "ALTER SESSION SET CURRENT_SCHEMA = NEW_DBA";
+        String statement = "ALTER SESSION SET CURRENT_SCHEMA = STUDENT";
         PreparedStatement preparedStatement = null;
 
         try {
