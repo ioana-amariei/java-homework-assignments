@@ -1,21 +1,23 @@
-package entity;
+package model;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "albums")
 public class Album {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-
-    @Column(name = "artist_id")
     private int artistId;
-
-    @Column(name = "release_year")
     private int releaseYear;
 
+    public Album(int id, String name, int artistId, int releaseYear) {
+        this.id = id;
+        this.name = name;
+        this.artistId = artistId;
+        this.releaseYear = releaseYear;
+    }
+
+    public Album(String name, int artistId, int releaseYear) {
+        this.name = name;
+        this.artistId = artistId;
+        this.releaseYear = releaseYear;
+    }
 
     public int getId() {
         return id;

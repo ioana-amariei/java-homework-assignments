@@ -63,3 +63,32 @@ BEGIN
   FROM dual;
 END;
 /
+
+CREATE TABLE CHARTS (
+      id NUMBER NOT NULL,
+      album_id NUMBER NOT NULL,
+      artist_id NUMBER NOT NULL,
+      rating NUMBER NOT NULL,
+      sales NUMBER NOT NULL,
+      CONSTRAINT charts_pk PRIMARY KEY (id),
+      CONSTRAINT top_album_fk FOREIGN KEY(album_id) REFERENCES ALBUMS(id),
+      CONSTRAINT top_artist_fk FOREIGN KEY(artist_id) REFERENCES ARTISTS(id)
+);
+/
+
+CREATE SEQUENCE charts_seq START WITH 1;
+/
+
+CREATE OR REPLACE TRIGGER charts_trigger
+BEFORE INSERT ON CHARTS
+FOR EACH ROW
+
+BEGIN
+  SELECT charts_seq.NEXTVAL
+  INTO :new.id
+  FROM dual;
+END;
+/
+
+
+

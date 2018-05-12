@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: net.sourceforge.dynamicreports:dynamicreports-googlecharts:5.1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sourceforge.dynamicreports/dynamicreports-googlecharts/5.1.0/f31a0d06c0ae6185270997d9ee2fee85122f74fb/dynamicreports-googlecharts-5.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sourceforge.dynamicreports/dynamicreports-googlecharts/5.1.0/2648aeec374bba48a96cf4ffd1f9ca9cd2121c67/dynamicreports-googlecharts-5.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

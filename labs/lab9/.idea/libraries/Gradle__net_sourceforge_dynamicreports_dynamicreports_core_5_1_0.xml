@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: net.sourceforge.dynamicreports:dynamicreports-core:5.1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sourceforge.dynamicreports/dynamicreports-core/5.1.0/cbc780eef5c41cec49c188c0d05f8c7d0fea5540/dynamicreports-core-5.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sourceforge.dynamicreports/dynamicreports-core/5.1.0/633c64401ccdaf61d67d6573a37087d289d88a1e/dynamicreports-core-5.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

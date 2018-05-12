@@ -1,15 +1,21 @@
-package entity;
+package model;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "artists")
 public class Artist {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String country;
+
+    public Artist(String name, String country) {
+        this.name = name;
+        this.country = country;
+    }
+
+
+    public Artist(int id, String name, String country) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+    }
 
     public int getId() {
         return id;
