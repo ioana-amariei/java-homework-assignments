@@ -53,4 +53,25 @@ public class RankController {
 
         return ranks;
     }
+
+    public List<Rank> findAllByRating() throws SQLException {
+        Connection connection = Database.getConnection();
+
+        String query = "SELECT * FROM ARTISTS, ALBUMS, CRITERIA " +
+                "WHERE ARTISTS.id = ALBUMS.artist_id" +
+                " AND " +
+                "CRITERIA.album_id = ALBUMS.id " +
+                "ORDER BY CRITERIA.rating DESC";
+
+        Statement stmt = connection.createStatement();
+        ResultSet resultSet = stmt.executeQuery(query);
+
+        List<Rank> ranks = new LinkedList<>();
+        while(resultSet.next()){
+            RankMapper rankMapper = new RankMapper();
+            ranks.add(rankMapper.mapRow(resultSet, 0));
+        }
+
+        return ranks;
+    }
 }

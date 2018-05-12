@@ -34,10 +34,6 @@ public class Application {
             createAndSaveAlbum("In Rainbows", radioheadId, 2007);
             Database.commit();
 
-            for(Album album : albumController.findAll()){
-                System.out.println(album);
-            }
-
             int mugurId = albumController.findByName("Mugur de fluier").getId();
             createAndSaveChart(mugurId, 123, 4.5f, 1234);
 
@@ -45,20 +41,18 @@ public class Application {
             createAndSaveChart(kidId, 200, 3.4f, 1000);
             Database.commit();
 
-            System.out.println("\nChart by number of downloads");
-            for(Rank rank : rankController.findAllByDownloads()){
-                System.out.println(rank);
-            }
-
-            System.out.println("\nChart by number of sales");
-            for(Rank rank : rankController.findAllBySales()){
-                System.out.println(rank);
-            }
-
             Reports reports = new Reports();
-            reports.generatePDFReport(rankController.findAllByDownloads());
-            reports.generateHTMLReport(rankController.findAllByDownloads(), "report.html");
-            reports.generateCSVReport(rankController.findAllByDownloads(), "report.csv");
+            reports.generatePDFReport(rankController.findAllByDownloads(), "NUMBER OF DOWNLOADS");
+            reports.generateHTMLReport(rankController.findAllByDownloads(), "downloads-report.html", "NUMBER OF DOWNLOADS");
+            reports.generateCSVReport(rankController.findAllByDownloads(), "downloads-report.csv");
+
+            reports.generatePDFReport(rankController.findAllBySales(), "ALBUM SALES");
+            reports.generateHTMLReport(rankController.findAllByDownloads(), "sales-report.html", "ALBUM SALES");
+            reports.generateCSVReport(rankController.findAllByDownloads(), "sales-report.csv");
+
+            reports.generatePDFReport(rankController.findAllByRating(), "RATING");
+            reports.generateHTMLReport(rankController.findAllByDownloads(), "rating-report.html", "RATING");
+            reports.generateCSVReport(rankController.findAllByDownloads(), "rating-report.csv");
 
             Database.closeConnection();
         } catch (SQLException e) {
