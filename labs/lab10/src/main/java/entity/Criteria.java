@@ -1,26 +1,22 @@
-package model;
+package entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "criteria")
 public class Criteria {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "album_id")
     private int albumId;
+
+    @Column(name = "album_sales")
     private int albumSales;
+
     private float rating;
     private int downloads;
-
-    public Criteria(int albumId, int albumSales, float rating, int downloads) {
-        this.albumId = albumId;
-        this.albumSales = albumSales;
-        this.rating = rating;
-        this.downloads = downloads;
-    }
-
-    public Criteria(int id, int albumId, int albumSales, float rating, int downloads) {
-        this.id = id;
-        this.albumId = albumId;
-        this.albumSales = albumSales;
-        this.rating = rating;
-        this.downloads = downloads;
-    }
 
     public int getId() {
         return id;

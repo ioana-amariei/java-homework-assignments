@@ -5,9 +5,10 @@
 
     <persistence-unit name="MusicAlbumsPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>entity.Todo</class>
         <class>entity.Artist</class>
         <class>entity.Album</class>
+        <class>entity.Criteria</class>
+        <class>entity.Rank</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/music"/>
