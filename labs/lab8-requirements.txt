@@ -1,0 +1,109 @@
+
+Lab 8
+[valid 2017-2018]
+
+Networking
+Create an application where clients connect to a server in order to play a "guessing game". The application will contain two modules (create a project for each one):
+
+    The server is responsible with the game management.
+    The client will communicate with the server, sending it commands such as:
+        create: the client will send the the player's name and the maximum number; the server will create a new game and it will respond with a welcome message.
+        submit: the client will send a number between 1 and the maximum number; the server will respond with one of the messages: "Too small", "Too big" or "You got it!" and the total number of attempts.
+        quit: the server will respond with the message "Loser, the number was: " and the generated random number. 
+
+The main specifications of the application are:
+
+Compulsory (1p)
+
+    Create the project ServerApplication. This will contain (at least) the classes: GameServer and ClientThread.
+    Create the class GameServer. An instance of this class will create a ServerSocket running at a specified port. The server will receive requests (commands) from clients and it will execute them.
+
+    public class GameServer {
+        private static final int PORT = 8100;
+        private ServerSocket serverSocket;
+        private boolean running = false;
+
+        public static void main(String[] args)  {
+            GameServer server = new GameServer();
+            server.init();
+            server.waitForClients(); //... handle the exceptions!
+        }
+        ... // Implement the init() method: create the serverSocket and set running to true
+        ... // Implement the waitForClients() method: while running is true, create a new socket for every incoming client and start a ClientThread to execute its request.
+    	
+        public void stop() throws IOException {
+            this.running = false;
+            serverSocket.close();
+        }	
+
+    Create the class ClientThread. An instance of this class will be responsible with communicating with a client Socket.
+
+    public class ClientThread extends Thread {
+        private Socket socket = null;
+        private final GameServer server;
+        ... // Create the constructor that receives a reference to the server and to the client socket
+        public void run() {
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); //client -> server stream
+            String request = in.readLine();
+            String response = execute(request);
+            PrintWriter out = new PrintWriter(socket.getOutputStream()); //server -> client stream
+            out.println(response);
+            out.flush();
+            socket.close(); //... usse try-catch-finally to handle the exceptions!
+        }    
+        private String execute(String request) {
+            ... // display the message: "Server received the request ... "
+        }
+    }
+
+    Create the project ClientApplication. This will contain (at least) the class: GameClient.
+    Create the class GameClient. An instance of this class will read commands from the keyboard and it will send them to the server. The client stops when it reads from the keyboard the string "exit".
+
+    public class GameClient {
+        private final static String SERVER_ADDRESS = "127.0.0.1";
+        private final static int PORT = 8100;
+        public static void main(String[] args) throws IOException {
+            GameClient client = new GameClient();
+            while (true) {
+                String request = client.readFromKeyboard();
+                if (request.equalsIgnoreCase("exit")) {
+                    break;
+                } else {
+                    client.sendRequestToServer(request);
+                }
+            }
+        }
+        ... //Implement the sendRequestToServer method
+    	
+        private String readFromKeyboard() {
+            Scanner scanner = new Scanner(System.in);
+            return scanner.next();
+        }
+    }
+
+Optional (1p)
+
+    Create the class GuessingGame, containing at least the properties: player, number, attempts and the methods required to control the game.
+    Implement all the commands in order to play the game.
+    Implement a timeout for a game (a number of minutes). If the server does not receive any command from the client in the specified period of time, it will terminate the game.
+    Implement the command stop in order to "gracefully" stop the server. When the server receives the "stop" command it will not accept new games but it will finish those in progress. When there are no more games, it will shutdown. 
+
+Bonus
+
+    Once a game is finished, an HTML representation of the game should be uploaded to a Web server so it may me viewed as a Web page.
+    You may use JCraft for connecting to a server using SFTP and transferring a file (or a similar solution). 
+
+
+Resources
+
+    Custom Networking
+    Remote Method Invocation (RMI)
+    Java Networking 
+
+Objectives
+
+    Understand terms and concepts related to networking: protocol, IP, port, URL, socket, and datagram.
+    Get familiar with the client-server programming model.
+    Write programs that communicate with other programs on the network, using TCP or UDP.
+    Get acquainted with RMI technology. 
+

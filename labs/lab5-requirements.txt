@@ -1,0 +1,133 @@
+
+Lab 5
+[valid 2017-2018]
+
+Starting from this week...:
+
+    Create multiple packages in your projects for organizing classes and interfaces (otherwise: -0.5 points).
+    Pay attention to the acces level modifiers specified for class members (otherwise...).
+    Pay attention to the warnings/hints issued by the IDE. 
+
+
+
+Visual Document Manager
+Rewrite the application from the previous lab so that its functionality is available also via a graphical user interface.
+
+The main specifications of the application are:
+
+Compulsory (1p)
+
+    Create a simple graphical user interface (using Swing) containing:
+        A form for adding new documents to the catalog. This form will contain input fields for name, path and release year and a button for adding a new document in the catalog. This panel must be placed at the top (north) part of the frame.
+        A list for displaying the content of the catalog. This component must be placed in the center part of the frame.
+        A control panel for managing items of the catalog (load, save, etc.). This panel will contains buttons for: load, save, etc. and it will be placed at the bottom (south) part of the frame. 
+    The application will contain (at least) the following classes:
+        CatalogFrame: the main frame of the application (JFrame)
+        DocumentForm: the form for adding new documents (JPanel containing components of the following types: JLabel, JTextField and JSpinner)
+        CatalogList: the list of documents (JList)
+        ControlPanel: the command buttons (JPanel) 
+    Implement (at least) the functionality of the Add button: when pressing this button the values in the document form will be concatenated and added to the list.
+    The main method will only contain the invocation: new CatalogFrame().setVisible(true);
+    For the compulsory part, it is not necessary to use the classes Catalog, Document, etc. created in the previous lab. 
+
+public class CatalogFrame extends JFrame {
+    DocumentForm form;
+    CatalogList list;
+    ControlPanel control;       
+   	
+    public CatalogFrame() {
+        super("Visual Document Manager");
+        init();
+    }
+    private void init() {
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        ...
+    }		
+    ...
+}
+
+public class CatalogList extends JList {
+    DefaultListModel model = new DefaultListModel<>();
+	
+    public CatalogList() {
+        String title = "<html><i><font color='blue'>" + 
+		    "Catalog Documents" + "</font></i></hmtl>";
+        this.setBorder(BorderFactory.createTitledBorder(title));
+        this.setModel(model);        
+    }    
+    public void addDocument(String item) {
+        model.addElement(item);
+    }
+}	
+
+	
+
+public class DocumentForm extends JPanel {
+    private final CatalogFrame frame;
+    JLabel titleLabel = new JLabel("Title of the document");
+    ...
+    JSpinner yearField = new JSpinner(
+	    new SpinnerNumberModel(1950, 1900, 2017, 1));
+    ...
+    private void init() {               
+        ...
+        addButton.addActionListener(...);
+    }
+    private void addDocument() {
+        frame.list.addDocument(...);
+    }
+}
+
+public class ControlPanel extends JPanel {
+    private final CatalogFrame frame;
+    JButton loadBtn = new JButton("Load");
+	...
+    public ControlPanel(CatalogFrame frame) {
+        this.frame = frame;
+        init();
+    }
+    private void init() {
+        add(loadBtn);
+        ...
+    }
+}
+
+	
+
+Optional (1p)
+
+    Integrate the model and the "businnes logic" code of the commands defined in the previous lab with the graphical user interface so that all the functionalities are implemented: save, load, open, report.
+    Use a table in order to display the content of the catalog.
+    Warning: It is important to separate the GUI code of the application logic code!
+    Warning: Create appropriate packages to organize your project! 
+
+Bonus
+Use a tree-like representation of the catalog, using a JTree component.
+
+    When selecting a node in the tree, detailed information about the current selection should be displayed.
+    A contextual menu should offer various actions such as: add a new item, open, search the Web for information about a document, etc. 
+
+An additional bonus may be given for storing the list in an external XML file (use either an XML parser or XML serialization).
+
+Resources
+
+    Creating a GUI With JFC/Swing
+    Download Java Demos and check \demo\jfc\SwingSet2 example.
+    SWT: The Standard Widget Toolkit
+    Open Source XML UI Toolkits in Java
+    Java API for XML Processing (JAXP)
+    Java Architecture for XML Binding (JAXB)
+    JavaWorld: Seven Indispensable NetBeans Java Hints 
+
+Objectives
+
+    Understand the concept of Human-Machine Interface.
+    Get familiar with the basic elements of design involved in creating a GUI.
+    Understand the concepts of component, container, layout manager.
+    Get acquainted with various libraries for creating a GUI application, such as AWT, Swing, SWT, (Java FX...later on)
+    Understand the differences between AWT and Swing.
+    Use basic and advanced Swing components such as JTable, JTree, etc.
+    Understand the Separable Model-and-View architecture of Swing components.
+    Write event listeners to handle events.
+    Use XML in a Java application. 
+

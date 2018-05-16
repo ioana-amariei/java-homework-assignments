@@ -1,0 +1,111 @@
+
+Lab 11
+[valid 2017-2018]
+
+Dynamic Swing Designer
+Create an application to assist the user in building a Swing graphical user interface.
+The purpose is to visually design a JPanel container using absolute positioning of its components.
+
+The main specifications of the application are:
+
+Compulsory (1p)
+
+    Create the class MainFrame of type JFrame, that will also represent the main class of the application. The frame will contain a ControlPanel in the north and a DesignPanel in the center.
+
+    public class MainFrame extends JFrame {
+        ControlPanel controlPanel;
+        DesignPanel designPanel;
+        public MainFrame() {
+            super("Swing Designer");
+            init();
+        }
+        private void init() {
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
+            ...//create and add to the frame the controlPanel and designPanel objects		
+            pack();
+        }
+        ...//create the main method
+    }
+
+    The ControlPanel will allow the user to specify any class name of a Swing component (such as javax.swing.JButton, javax.swing.JLabel, etc.), a default text for that component (if applicable) and a button for creating and adding an instance of the specified component to the DesignPanel.
+
+    public class ControlPanel extends JPanel {
+        private final MainFrame frame;
+        private final JLabel classNameLabel = new JLabel("Class name");
+        private final JTextField classNameField = new JTextField(30);
+        private final JLabel textLabel = new JLabel("Default text");
+        private final JTextField textField = new JTextField(10);
+        private final JButton createButton = new JButton("Add component");
+        public ControlPanel(MainFrame frame) {
+            this.frame = frame;
+            init();
+        }
+        private void init() {
+            add(classNameLabel); add(classNameField); add(textLabel); add(textField); add(createButton);
+            createButton.addActionListener(e -> {
+                JComponent comp = createDynamicComponent(classNameField.getText());
+                setComponentText(comp, textField.getText());
+                frame.designPanel.addAtRandomLocation(comp);
+            });
+        }
+        private JComponent createDynamicComponent(String className) {
+    	   ...//implement this method
+        }
+        private void setComponentText(JComponent comp, String text) {
+    	   ...//implement this method
+        }
+    }
+
+    The DesignPanel represents a simple JPanel, using absolute positioning of its components and containing Swing components added by our application.
+
+    public class DesignPanel extends JPanel {
+        public static final int W = 800, H = 600;
+        private final MainFrame frame;
+        public DesignPanel(MainFrame frame) {
+            this.frame = frame;
+            setPreferredSize(new Dimension(W, H));
+            setLayout(null);
+        }
+        public void addAtRandomLocation(JComponent comp) {
+            int x = ...//create a random integer between 0 and W-1
+            int y = ...//create a random integer between 0 and H-1
+            int w = comp.getPreferredSize().width;
+            int h = comp.getPreferredSize().height;
+            comp.setBounds(x, y, w, h);
+            comp.setToolTipText(comp.getClass().getName());
+            this.add(comp);
+            frame.repaint();
+        }
+    }
+
+Optional (1p)
+
+    The DesignPanel container must be saved / restored in XML format, using JavaBeans serialization. Add the buttons Save and Load to the ControlPanel.
+    Whenever the user sets the focus on an added component, its properties should be displayed in a JTable componenet. Use the java.beans.Introspector class to get the properties of a Swing component.
+    The properties of type String and int should be updateable. The user may change the text on a button, the position or size of the components, etc. 
+
+Bonus
+
+    Consider the case when the components used in creating the design are not standard Swing classes.
+    These custom components may be in external directories or jar archives that should be added dynamically to the project. A class reloading mechanism should be implemented in this case.
+    Create an external library containing a custom button (for example, a button with a regular polygon shape). Use this button in the design, dynamically loading its class from the external jar. The file name containing the jar must be specified at runtime.
+    Custom components (such as the polygon shaped button) may be annotated in order to specify default values for their properties, for example @Width(10), @Height(20), @Text("Hello World"), etc.. Inspect and use these annotations when creating such a component. 
+
+Resources
+
+    Packages
+    Java Class Loading: The Basics
+    Understanding Extension Class Loading
+    The Reflection API
+    Annotations
+    JavaBeans 
+
+Objectives
+
+    Understand Java class loading mechanism.
+    Learn how to set the CLASSPATH and how to use the system class loader.
+    Load classes dynamically.
+    Instantiate objects of a class whose name is known only at runtime.
+    Use Reflection API to inspect or use types at runtime.
+    Understand the role of annotations in the context of modern programming techniques. 
+

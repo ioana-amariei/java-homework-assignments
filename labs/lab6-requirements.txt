@@ -1,0 +1,87 @@
+
+Lab 7
+[valid 2017-2018]
+
+Drawing
+Create an application for creating images containing geometrical shapes and graphs of functions.
+
+The main specifications of the application are:
+
+Compulsory (1p)
+
+    Create a simple graphical user interface (using Swing) containing:
+        A canvas for drawing various shapes, such as regular polygons. This panel must be placed in the center part of the frame.
+        A drawing panel for introducing parameters regarding the shapes that will be drawn: the number of sides, the number of shapes and the stroke. It will also contain the Draw button. The panel must be placed at the top part of the frame.
+        A control panel for managing the image being created. This panel will contains the buttons: Load, Save, Reset and it will be placed at the bottom (south) part of the frame. 
+    The application will contain (at least) the following classes:
+        DrawingFrame: the main frame of the application (JFrame)
+        Canvas: the component representing our drawing (JPanel)
+        Toolbar: the panel for specifying parameters regarding the shapes that will be drawn.
+        ControlPanel: the load, save and reset buttons (JPanel). 
+    When the user presses the button Draw the shapes should be drawn at random locations, having random sizes and random colors. Consider using transparent colors.
+    The Canvas class will contain a method responsible with drawing a shape at a given location:
+
+        public void drawShapeAt(int x, int y) {
+            Random rand = new Random();		
+            graphics.setColor(new Color(rand.nextInt(0xFFFFFF)));
+    		...
+            graphics.fill(new RegularPolygon(x, y, radius, sides));
+        }
+
+    When the user clicks on the canvas, a single shape should be drawn at the coordinates given by the MouseEvent.
+
+        this.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {                
+                drawShapeAt(e.getX(), e.getY());                
+            }
+        });
+
+    Use a BufferedImage object in order to represent the content of the drawing.
+
+        BufferedImage image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = image.createGraphics();
+
+    Use the following class in order to create regular polygons:
+
+    public class RegularPolygon extends Polygon {
+        public RegularPolygon(int x0, int y0, int radius, int sides) {
+            double alpha = 2 * Math.PI / sides;
+            for (int i = 0; i < sides; i++) {
+                double x = x0 + radius * Math.cos(alpha * i);
+                double y = y0 + radius * Math.sin(alpha * i);
+                this.addPoint((int) x, (int) y);
+            }
+        }
+    }
+
+Optional (1p)
+
+    In addition to regular polygons, the application must allow the drawing of graphs of functions.
+    Consider a coordinate system, for example the origin might be the center of the canvas.
+    Specify a function of one variable in the real domain as a string expression and draw its graph on the canvas.
+    Any function should be permitted: linear, polynomial, exponential, logarithmic, sinusoidal etc., for example f(x)=sin(x) or f(x)=x^2 + 2x + 1, etc.
+    You may use a third party library for parsing and evaluating expressions, such as exp4j or Apache Commons JEXL or other. 
+
+Bonus
+
+    Plot several points on the surface and draw the graph of the polynomial function passing through the given coordinates. You may use the Lagrange polynomials or other interpolation technique.
+    Encode the drawing using SVG (Scalable Vector Graphics) format. Check out The Apache Batik Project.
+    You may also take a look at JLaTexMath if you want to display mathematical formulas written in LaTeX 
+
+Resources
+
+    The Java Tutorials: 2D Graphics
+    Download Java Demos and check Java2D application.
+    Java SE Client Technologies - JavaFX
+    Download JavaFX Demos and check Ensemble application.
+    Download JavaFX Scene Builder 2.0
+    Using Scene Builder with NetBeans IDE 
+
+Objectives
+
+    Understand how Swing components are painted.
+    Create custom components using Java2D that coexist with standard Swing components.
+    Understand the concept of graphic context.
+    Get familiar with Java2D basic geometric primitives, use colours, fonts, images
+    Get acquainted with JavaFX technology and understand the differences between Swing and JavaFX. 
+

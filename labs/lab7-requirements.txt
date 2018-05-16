@@ -1,0 +1,113 @@
+
+Lab 7
+[valid 2017-2018]
+
+Concurrency
+Write a program that simulates a word game between a given number of players.
+
+At the beginning of the game there is a bag containing a number of letter tiles. The application will also use a dictionary that contains a list of acceptable words. Each player extracts tiles from the bag and must create a word from the dictionary with them. When a player creates a word, it submits it and may receive a number of points (for example, the length of the word multiplied with some constant). After submitting a word, the player will immediately request other tiles from the bag (if this is possible). The game ends when the bag becomes empty. The winner is the player with the highest score.
+The players might take turns (or not...) and a time limit might be imposed (or not...).
+
+The main specifications of the application are:
+
+Compulsory (1p)
+
+    Create the class Bag. An instance of this class will hold all the available letters.
+
+    public class Bag {
+        private final Queue<Character> letters = new LinkedList<>();
+        public Bag() { // Add all the letters from 'a' to 'z' in the bag. }
+        public ........... List<Character> extractLetters(int howMany) {
+            // Replace the dots so that the bag is thread-safe
+            List<Character> extracted = new ArrayList<>();
+            for (int i = 0; i < howMany; i++) {
+                if (letters.isEmpty()) break;
+                extracted.add(letters.poll());
+            }
+            return extracted;
+        }
+    }
+
+    Create the class Board. An instance of this class will hold the list of words submitted by the players. The class will contain the method addWord which will add a word in the list and it will also display a message: " Player ... submitted the word ... ". Make sure that the board is thread-safe.
+    Create the class Player. Each player will have a name. This class will implement the Runnable interface. In the run method the player will repeatedly extract one letter from the bag, generate a string containing that letter duplicated 10 times and add it on the board. For example, if it extracts the letter 'a', it will add to the board the word 'aaaaaaaaaa'.
+
+    public class Player implements Runnable {
+        private String name;
+        private Game game;	
+        private boolean createSubmitWord() throws InterruptedException {
+            List extracted = game.getBag().extractLetters(1);
+            if (extracted.isEmpty()) {
+                return false;
+            }
+            StringBuilder word = new StringBuilder();
+            for (int i = 0; i < 10; i++) {
+                word.append(extracted.get(0));
+            }
+            game.getBoard().addWord(this, word.toString());
+            Thread.sleep(300);
+            return true;
+    	}
+        //implement the run() method, that will repeatedly create and submit words
+        //implement the toString() method
+    }
+
+    Create the Game class. Simulate the game using a thread for each player.
+    Pay attention to the synchronization of the threads when extracting letters from the bag and when submitting a word. If players should wait their turns, you may use a wait-notify approach.
+
+    public class Game {
+        private Bag bag;
+        private Board board;
+        //private Dictionary dictionary;
+        private final List<Player> players = new ArrayList<>();
+        public void addPlayer(Player player) {
+            players.add(player);
+            player.setGame(this);
+        }
+        //Create getters and setters
+        //Create the method that will start the game: start one thread for each player
+    }
+
+    Test the game using a sequence similar with:
+
+        public static void main(String args[]) {
+            Game game = new Game();
+            game.setBag(new Bag());
+            game.setBoard(new Board());
+            game.addPlayer(new Player("Player 1"));
+            game.addPlayer(new Player("Player 2"));
+            game.addPlayer(new Player("Player 3"));
+            game.start();
+        }
+
+Optional (1p)
+
+    Implement "some" rules of the Scrabble game.
+    The bag will contain 100 letter tiles; you may choose whatever letter distribution.
+    Create the interface Dictionary containing only the method boolean containsWord(String str);. Create an implementation of a dictionary, using some collection of words. This collection should be large enough; you may use aspell to generate a text file containing English words, or anything similar: WordNet, dexonline, etc.
+    Each player receives 7 random tiles from the bag and he must create a word from the dictionary with them.
+    When a player creates a word it submits it and receives a number of points (for example, the length of the word multiplied with some constant).
+    After submitting a word of length k, the player will immediately receive another k tiles from the bag (if this is possible).
+    Consider the situation when each player might have a different strategy for creating a word: automated (using a systematic approach, trying randomly, etc.) or manual.
+    Implement the systematic approach. (Player should be an abstract class).
+    Implement a timekeeper thread that runs concurrently with the player threads, as a daemon. This thread will display the running time of the game. 
+
+Bonus
+
+    Create a graphical user interface for the game, using Java FX. 
+
+
+References
+
+    The Java Tutorials: Concurrency
+    Java Language Specification: Threads and Locks
+    Java Concurrency / Multithreading Tutorial 
+
+Objectives
+
+    Understand the basic principles of concurrent programming.
+    Create and run threads using the Thread class and the Runnable interface.
+    Understand resource contention and thread interference.
+    Create synchronized methods or statements.
+    Implement the wait-notify mechanism.
+    Understand the thread pool and fork/join concepts. 
+
