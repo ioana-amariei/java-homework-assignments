@@ -8,38 +8,49 @@ import model.Artist;
 import model.Criteria;
 import model.Rank;
 import net.sf.dynamicreports.report.exception.DRException;
+import random.RandomAlbumData;
+import random.RandomArtistData;
+import random.RandomCriteriaData;
 import report.Reports;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Application {
     private static ArtistController artistController = new ArtistController();
     private static AlbumController albumController = new AlbumController();
     private static CriteriaController criteriaController = new CriteriaController();
     private static RankController rankController = new RankController();
+    private static RandomAlbumData randomAlbum = new RandomAlbumData();
+    private static RandomArtistData randomArtist = new RandomArtistData();
+    private static RandomCriteriaData randomCriteria = new RandomCriteriaData();
 
     public static void main(String[] args) throws SQLException, FileNotFoundException {
         try {
-            createAndSaveArtist("Radiohead", "United Kingdom");
-            createAndSaveArtist("Phoenix", "Romania");
+            createArtists(10);
             Database.commit();
 
-            int phoenixId = artistController.findByName("Phoenix").getId();
-            createAndSaveAlbum("Mugur de fluier", phoenixId, 1974);
+            List<Artist> artists = artistController.findAll();
+            for(Artist artist : artists){
+                System.out.println(artist);
+                createAlbums(2, artist.getId());
+                Database.commit();
+            }
 
-            int radioheadId = artistController.findByName("Radiohead").getId();
-            createAndSaveAlbum("OK Computer", radioheadId, 1997);
-            createAndSaveAlbum("Kid A", radioheadId, 2000);
-            createAndSaveAlbum("In Rainbows", radioheadId, 2007);
-            Database.commit();
+            List<Album> albums = albumController.findAll();
+            for (Album album : albums){
+                createAndSaveChart(album.getId(),
+                                    randomCriteria.getSales(),
+                                    randomCriteria.getRating(),
+                                    randomCriteria.getDownloads());
+                Database.commit();
+            }
 
-            int mugurId = albumController.findByName("Mugur de fluier").getId();
-            createAndSaveChart(mugurId, 123, 4.5f, 1234);
-
-            int kidId = albumController.findByName("Kid A").getId();
-            createAndSaveChart(kidId, 200, 3.4f, 1000);
-            Database.commit();
+            List<Criteria> criteria = criteriaController.findAll();
+            for(Criteria criteria1 : criteria){
+                System.out.println(criteria1);
+            }
 
             Reports reports = new Reports();
             reports.generatePDFReport(rankController.findAllByDownloads(), "NUMBER OF DOWNLOADS");
@@ -47,22 +58,29 @@ public class Application {
             reports.generateCSVReport(rankController.findAllByDownloads(), "downloads-report.csv");
 
             reports.generatePDFReport(rankController.findAllBySales(), "ALBUM SALES");
-            reports.generateHTMLReport(rankController.findAllByDownloads(), "sales-report.html", "ALBUM SALES");
-            reports.generateCSVReport(rankController.findAllByDownloads(), "sales-report.csv");
+            reports.generateHTMLReport(rankController.findAllBySales(), "sales-report.html", "ALBUM SALES");
+            reports.generateCSVReport(rankController.findAllBySales(), "sales-report.csv");
 
             reports.generatePDFReport(rankController.findAllByRating(), "RATING");
-            reports.generateHTMLReport(rankController.findAllByDownloads(), "rating-report.html", "RATING");
-            reports.generateCSVReport(rankController.findAllByDownloads(), "rating-report.csv");
+            reports.generateHTMLReport(rankController.findAllByRating(), "rating-report.html", "RATING");
+            reports.generateCSVReport(rankController.findAllByRating(), "rating-report.csv");
 
             Database.closeConnection();
         } catch (SQLException e) {
             System.err.println(e);
             Database.rollback();
-        } catch (DRException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    private static void createAlbums(int howMany, int id) throws SQLException {
+        int i = 0;
+        while (i < howMany) {
+            createAndSaveAlbum(randomAlbum.getRandomName(), id, randomAlbum.getRandomYear());
+            i++;
+        }
+    }
     private static void createAndSaveChart(int albumId, int albumSales, float rating, int downloads) throws SQLException {
         Criteria criteria = new Criteria(albumId, albumSales, rating, downloads);
         criteriaController.save(criteria);
@@ -71,6 +89,14 @@ public class Application {
     private static void createAndSaveArtist(String name, String country) throws SQLException {
         Artist artist = new Artist(name, country);
         artistController.save(artist);
+    }
+
+    private static void createArtists(int howMany) throws SQLException {
+        int i = 0;
+        while (i < howMany) {
+            createAndSaveArtist(randomArtist.getRandomName(), randomArtist.getRandomCountry());
+            i++;
+        }
     }
 
     private static void createAndSaveAlbum(String name, int artistId, int releaseYear) throws SQLException {

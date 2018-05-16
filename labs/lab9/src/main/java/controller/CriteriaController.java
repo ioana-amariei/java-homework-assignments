@@ -32,13 +32,13 @@ public class CriteriaController implements EntityController<Criteria, Integer> {
 
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(query);
-        if (resultSet == null) {
-            return null;
+
+        if(resultSet.next()) {
+            CriteriaMapper criteriaMapper = new CriteriaMapper();
+            return criteriaMapper.mapRow(resultSet, 0);
         }
 
-        CriteriaMapper criteriaMapper = new CriteriaMapper();
-
-        return criteriaMapper.mapRow(resultSet, 0);
+        return null;
     }
 
     @Override

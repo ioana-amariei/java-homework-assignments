@@ -29,20 +29,20 @@ public class ArtistController implements EntityController <Artist, Integer> {
 
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(query);
-        if (resultSet == null) {
-            return null;
+
+        if(resultSet.next()) {
+            ArtistMapper artistMapper = new ArtistMapper();
+            return artistMapper.mapRow(resultSet, 0);
         }
 
-        ArtistMapper artistMapper = new ArtistMapper();
-
-        return artistMapper.mapRow(resultSet, 0);
+        return  null;
     }
 
     @Override
     public List <Artist> findAll() throws SQLException {
         Connection connection = Database.getConnection();
 
-        String query = "SELECT * FROM ALBUMS";
+        String query = "SELECT * FROM ARTISTS";
 
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(query);
