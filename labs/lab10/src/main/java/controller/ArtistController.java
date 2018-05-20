@@ -4,10 +4,11 @@ import entity.Artist;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.List;
 
-public class ArtistController implements AbstractController<Artist, Integer> {
+public class ArtistController implements AbstractController <Artist, Integer> {
     private EntityManagerFactory emf;
 
     public ArtistController(EntityManagerFactory emf) {
@@ -18,7 +19,7 @@ public class ArtistController implements AbstractController<Artist, Integer> {
         EntityManager em = emf.createEntityManager();
         Query query = em.createQuery("select t from Artist t where t.name=:name");
 
-        List<Artist> artists = query.setParameter("name", artistName).getResultList();
+        List <Artist> artists = query.setParameter("name", artistName).getResultList();
         em.close();
         return artists.isEmpty() ? null : artists.get(0);
     }
@@ -38,7 +39,7 @@ public class ArtistController implements AbstractController<Artist, Integer> {
         EntityManager em = emf.createEntityManager();
         Query query = em.createQuery("select t from Artist t where t.id=:id");
 
-        List<Artist> artists = query.setParameter("id", id).getResultList();
+        List <Artist> artists = query.setParameter("id", id).getResultList();
         em.close();
         return artists.isEmpty() ? null : artists.get(0);
     }
@@ -48,7 +49,7 @@ public class ArtistController implements AbstractController<Artist, Integer> {
         EntityManager em = emf.createEntityManager();
         Query query = em.createQuery("select * from Artist t");
 
-        List<Artist> artists = query.getResultList();
+        List <Artist> artists = query.getResultList();
         em.close();
 
         return artists;
@@ -57,22 +58,29 @@ public class ArtistController implements AbstractController<Artist, Integer> {
     @Override
     public void update(Artist artist) {
         EntityManager em = emf.createEntityManager();
-        String statement = "update Artist t set t.name=:name, t.country=:country where t.id=:id";
+        EntityTransaction entityTransaction = em.getTransaction();
+        entityTransaction.begin();
+
+        String statement = "update Artist t set t.name = 'Unknown Name' where t.id=:id";
         Query query = em.createQuery(statement);
 
-        query.setParameter("name", artist.getName())
-                .setParameter("country", artist.getCountry())
-                .setParameter("id", artist.getId())
-                .executeUpdate();
+        query.setParameter("id", artist.getId());
+        query.executeUpdate();
+
         em.close();
+        entityTransaction.commit();
     }
 
     @Override
     public void delete(Artist artist) {
         EntityManager em = emf.createEntityManager();
+        EntityTransaction entityTransaction = em.getTransaction();
+        entityTransaction.begin();
+
         Query query = em.createQuery("delete from Artist t where t.id=:id");
 
         query.setParameter("id", artist.getId()).executeUpdate();
         em.close();
+        entityTransaction.commit();
     }
 }

@@ -5,6 +5,7 @@ import entity.Artist;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -67,23 +68,29 @@ public class AlbumController implements AbstractController<Album, Integer> {
     @Override
     public void update(Album album) {
         EntityManager em = emf.createEntityManager();
-        String statement = "update Album t set t.name=:name, t.artist_id=:artist_id, t.release_year=:release_year where t.id=:id";
+        EntityTransaction entityTransaction = em.getTransaction();
+        entityTransaction.begin();
+
+        String statement = "update Album t set t.releaseYear = 2018 where t.id=:id";
         Query query = em.createQuery(statement);
 
-        query.setParameter("name", album.getName())
-                .setParameter("artist_id", album.getArtistId())
-                .setParameter("release_year", album.getReleaseYear())
-                .setParameter("id", album.getId())
-                .executeUpdate();
+        query.setParameter("id", album.getId());
+        query.executeUpdate();
+
         em.close();
+        entityTransaction.commit();
     }
 
     @Override
     public void delete(Album album) {
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("delete from Album t where t.id=:id");
+        EntityTransaction entityTransaction = em.getTransaction();
+        entityTransaction.begin();
 
+        Query query = em.createQuery("delete from Album t where t.id=:id");
         query.setParameter("id", album.getId()).executeUpdate();
+
         em.close();
+        entityTransaction.commit();
     }
 }

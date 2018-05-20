@@ -53,8 +53,61 @@ public class AlbumManager {
                 case "list-downloads":
                     listDownloads();
                     break;
+                case "update-album":
+                    updateAlbum(params[1]); // album name
+                    break;
+                case "update-artist":
+                    updateArtist(params[1]); // artist name
+                    break;
+                case "delete-artist":
+                    deleteArtist(params[1]); // artist name
+                    break;
+                case "delete-album":
+                    deleteAlbum(params[1]); // album name
+                    break;
+                case "delete-criteria":
+                    deleteCriteria(params[1]); // criteria id
+                    break;
             }
         }
+    }
+
+    private void deleteCriteria(String id) {
+        int criteriaId = Integer.parseInt(id);
+        Criteria criteriaBeforeDelete = criteriaController.findById(criteriaId);
+        System.out.println("Before delete: " + criteriaBeforeDelete);
+        criteriaController.delete(criteriaBeforeDelete);
+        System.out.println("After delete: " + criteriaController.findById(criteriaId));
+    }
+
+    private void deleteAlbum(String name) {
+        Album albumBeforeDelete = albumController.findByName(name);
+        System.out.println("Before delete: " + albumBeforeDelete);
+        albumController.delete(albumBeforeDelete);
+        System.out.println("After delete: " + albumController.findByName(name));
+    }
+
+    private void deleteArtist(String name) {
+        Artist artistBeforeDelete = artistController.findByName(name);
+        System.out.println("Before delete: " + artistBeforeDelete);
+        artistController.delete(artistBeforeDelete);
+        System.out.println("After delete: " + artistController.findByName(name));
+    }
+
+    private void updateArtist(String name) {
+        Artist artistBeforeUpdate = artistController.findByName(name);
+        System.out.println("Before update: " + artistBeforeUpdate);
+        artistController.update(artistBeforeUpdate);
+        Artist artistAfterUpdate = artistController.findByName(artistBeforeUpdate.getName());
+        System.out.println("After update: " + artistAfterUpdate);
+    }
+
+    private void updateAlbum(String name) {
+        Album albumBeforeUpdate = albumController.findByName(name);
+        System.out.println("Before update: " + albumBeforeUpdate);
+        albumController.update(albumBeforeUpdate);
+        Album albumAfterUpdate = albumController.findByName(albumBeforeUpdate.getName());
+        System.out.println("After update: " + albumAfterUpdate);
     }
 
     private void listDownloads() throws SQLException {

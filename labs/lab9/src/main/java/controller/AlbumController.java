@@ -60,12 +60,10 @@ public class AlbumController implements EntityController<Album, Integer>{
     public void update(Album album) throws SQLException {
         Connection connection = Database.getConnection();
 
-        String statement = "UPDATE ALBUMS SET name = ? , artist_id = ?, release_year = ? WHERE id = ?";
+        String statement = "UPDATE ALBUMS SET name = 'Unknown name' WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(statement);
 
-        preparedStatement.setString(1, "Updated name");
-        preparedStatement.setInt(2, album.getArtistId());
-        preparedStatement.setInt(3, album.getReleaseYear());
+        preparedStatement.setInt(1, album.getId());
         preparedStatement.execute();
     }
 
