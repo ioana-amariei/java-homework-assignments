@@ -17,6 +17,6 @@ public class PopupReceiver extends BroadcastReceiver {
         String name = intent.getStringExtra("name");
         String details = intent.getStringExtra("details");
         String text = String.format("Name: %s\nDetails: %s", name, details);
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
     }
 }

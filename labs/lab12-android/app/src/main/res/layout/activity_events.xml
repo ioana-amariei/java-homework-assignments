@@ -34,6 +34,9 @@
                 android:id="@+id/eventsLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:divider="?android:attr/dividerHorizontal"
+                android:showDividers="middle"
+                android:dividerHeight="5dp"
                 android:orientation="vertical" />
         </ScrollView>
     </LinearLayout>

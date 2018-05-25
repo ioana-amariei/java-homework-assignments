@@ -3,6 +3,8 @@ package com.example.ami.javalab12;
 import android.app.PendingIntent;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -41,6 +43,10 @@ public class EventsActivity extends AppCompatActivity {
             TextView textView = new TextView(linearLayout.getContext());
             textView.append(event.getName());
             textView.setGravity(Gravity.CENTER);
+            textView.setTextColor(Color.rgb( 41, 128, 185));
+            textView.setTextSize(26);
+            Typeface font = Typeface.create("cursive", Typeface.NORMAL);
+            textView.setTypeface(font);
             linearLayout.addView(textView);
         }
     }
