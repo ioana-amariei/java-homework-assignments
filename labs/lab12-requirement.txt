@@ -1,0 +1,109 @@
+
+Lab 12
+[valid 2017-2018]
+
+Internationalization and Localization
+Create an application to explore the available locales included in the standard Java Development Kit.
+
+The main specifications of the application are:
+
+Compulsory (1p)
+
+    Create a package with the name resources. Inside this package create the files: Messages.properties, Messages_ro.properties.
+
+    #Messages.properties file
+    prompt = Input command:
+    locales = The available locales are:
+    locale.set = The current locale is {0}
+    info = Information about {0}:
+    invalid = Unknown command
+
+    	
+
+    #Messages_ro.properties file
+    prompt = Comanda ta:
+    locales = Localizarile disponibile sunt:
+    locale.set = Localizarea curenta este {0}
+    info = Informatii despre localizarea {0}:
+    invalid = Comanda necunoascuta
+
+
+    Create the package app and the class LocaleExplore.
+
+    public class LocaleExplorer {
+        private final String baseName = "i18n.Messages";
+        private Locale locale;
+        private ResourceBundle resourceBundle;
+
+        public void run() {
+            setLocale("en-US");
+            Scanner scanner = new Scanner(System.in);
+            while (true) {
+                System.out.print(message("prompt"));
+                String command = scanner.nextLine();
+                if (command.equals("exit")) break;            
+                String[] params = command.trim().split("\\s+");
+                switch (params[0]) {
+                    case "locales" : displayLocales(); break;
+                    case "set"     : setLocale(params[1]); break;
+                    case "info"    : localeInfo(); break;
+                    default        : System.out.println(message("invalid"));
+                }
+            }
+        }
+        private String message(String key, String ... arguments) {
+            String pattern = resourceBundle.getString(key);
+            String message = new MessageFormat(pattern).format(arguments);        
+            return message;
+        }
+        private void setLocale(String languageTag) {
+            this.locale = Locale.forLanguageTag(languageTag);
+            this.resourceBundle = ResourceBundle.getBundle(baseName, locale);
+            message("locale.set", languageTag);
+        }    
+        private void displayLocales() {
+            message("locales");
+            ..//Implement this method
+        }
+        private void localeInfo() {
+            message("locale.set");
+            ...//Implement this method (see below)
+        }
+        public static void main(String args[]) {
+            new LocaleExplorer().run();
+        }
+    }
+
+    When the user sets a specific language tag, various information obtained using standard Java classes such as Currency or DateFormatSymbols should be displayed in a text area, as in the following example:
+        Country: Romania (România)
+        Language: Romanian (română)
+        Currency: RON (Romanian Leu)
+        Week Days: luni, marţi, miercuri, joi, vineri, sâmbătă, duminică
+        Months: ianuarie, februarie, martie, aprilie, mai, iunie, iulie, august, septembrie, octombrie, noiembrie, decembrie
+        Today: May 8, 2016 (8 mai 2016) 
+    All the locale-sensitive information should be translated in at least two languages (english-default and romanian).
+
+Optional (1p)
+Implement the commands using an object-oriented approach and map command names to corresponding classes using an external file Commands.properties.
+The names of the commands should also be configurable.
+
+#Commands.properties
+set-locale.command = set
+set-locale.impl = commands.SetLocaleCommand
+...
+
+Bonus
+
+    Invoke a REST Web Service to obtain additional information about a country (capital, continent, etc.), for example DataFlex Web Service for Country information. 
+
+Resources
+
+    Internationalization 
+
+Objectives
+
+    Understand the concepts of internationalization and localization
+    Identify a localization by using the Locale object
+    Use properties files and resource bundles
+    Parse and format locale-sensitive data, such as dates, number, currencies. 
+
