@@ -109,6 +109,3 @@ public class LocaleExplorer {
         frame.setVisible(true);
     }
 }
-
-
-// new command displayCountryInfo(Country)
